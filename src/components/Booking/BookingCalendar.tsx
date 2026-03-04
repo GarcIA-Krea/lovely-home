@@ -17,6 +17,8 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [nights, setNights] = useState<number>(0);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (checkIn && checkOut) {
             const start = new Date(checkIn);
@@ -34,10 +36,36 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
         }
     }, [checkIn, checkOut, pricePerNight]);
 
-    const handleBooking = () => {
+    const handleBooking = async () => {
         if (nights > 0) {
-            alert(`Iniciando reserva directa para ${propertyName}.\n${nights} noches por ${totalPrice.toLocaleString()} ${currency}.\n\n(Próximo paso: Integración con Stripe)`);
-            onClose();
+            setLoading(true);
+            try {
+                const response = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        propertyId,
+                        propertyName,
+                        pricePerNight,
+                        checkIn,
+                        checkOut,
+                        nights,
+                        currency,
+                    }),
+                });
+
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || 'Failed to create checkout session');
+                }
+            } catch (error: any) {
+                console.error('Booking Error:', error);
+                alert('Error al iniciar el proceso de pago. Por favor intenta de nuevo.');
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -89,11 +117,11 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
 
                 <button
                     className={styles.bookBtn}
-                    disabled={nights <= 0}
+                    disabled={nights <= 0 || loading}
                     onClick={handleBooking}
                 >
                     <span className="material-symbols-outlined">bolt</span>
-                    Confirmar y Pagar
+                    {loading ? 'Redirigiendo a Pago...' : 'Confirmar y Pagar'}
                 </button>
 
                 <p className={styles.disclaimer}>
