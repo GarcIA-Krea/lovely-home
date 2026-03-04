@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lovely Home - Testimonials</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c5e16b",
+                        "primary-content": "#1d210f",
+                        "background-light": "#f7f8f6",
+                        "background-dark": "#121212",
+                        "surface-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col justify-center">
+    <section class="py-20 px-4 md:px-8 w-full max-w-[1440px] mx-auto">
+        <!-- Header Section -->
+        <div class="flex flex-col items-center mb-16 text-center">
+            <span class="text-primary font-bold tracking-wider text-sm uppercase mb-3">Testimonios</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                Lo Que Nuestros Huéspedes Dicen
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 max-w-2xl text-lg">
+                Historias reales de viajeros que encontraron su hogar lejos de casa.
+            </p>
+        </div>
+        <!-- Grid of Testimonials -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div
+                class="bg-white dark:bg-surface-dark p-8 rounded-xl shadow-lg border border-slate-100 dark:border-slate-800 flex flex-col relative group hover:-translate-y-1 transition-transform duration-300">
+                <!-- Decorative Quote Icon -->
+                <div class="absolute top-6 right-6 text-primary/20 group-hover:text-primary/40 transition-colors">
+                    <span class="material-symbols-outlined text-6xl">format_quote</span>
+                </div>
+                <!-- Stars -->
+                <div class="flex gap-1 mb-6 text-primary">
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                </div>
+                <!-- Text -->
+                <p class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-8 flex-grow">
+                    "Quedarse en Lovely Home fue un sueño absoluto. La atención al detalle y el diseño curado hicieron
+                    que nuestro viaje fuera inolvidable. Definitivamente volveremos el próximo año."
+                </p>
+                <!-- User Info -->
+                <div class="flex items-center gap-4 mt-auto pt-6 border-t border-slate-100 dark:border-slate-800/50">
+                    <div class="h-12 w-12 rounded-full bg-cover bg-center ring-2 ring-primary/20"
+                        data-alt="Portrait of Sarah J. smiling outdoors"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDR6GjiUTnsBtQzIoxbNmfoRgO23pGWDoXLlpok5J11rj_lipZhn7-h8D4gmnFsz8CM3OQxnTCi-ohGg5TYM3NrrQXgdcadFz3JfwxPWqkgfPAcIqvTjOk8XPO55g6414ujiycVI7H6i6T3NZJL8sEryEHtNifDRCnC2Ranzo3pjOK8qKA6TPVIRQ9XsI09olUotoW3FpvLL3oj97XZyHodPjp3TqBMBbXPUTE7dOAFiO4V6eu-irMEpQbR0BolXMmbihZNpwAhoU1T');">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Sarah J.</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">New York City</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div
+                class="bg-white dark:bg-surface-dark p-8 rounded-xl shadow-lg border border-slate-100 dark:border-slate-800 flex flex-col relative group hover:-translate-y-1 transition-transform duration-300">
+                <div class="absolute top-6 right-6 text-primary/20 group-hover:text-primary/40 transition-colors">
+                    <span class="material-symbols-outlined text-6xl">format_quote</span>
+                </div>
+                <div class="flex gap-1 mb-6 text-primary">
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                </div>
+                <p class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-8 flex-grow">
+                    "Una experiencia de lujo desde el primer momento. La ubicación era perfecta y el diseño interior,
+                    exquisito. Superó todas nuestras expectativas por mucho."
+                </p>
+                <div class="flex items-center gap-4 mt-auto pt-6 border-t border-slate-100 dark:border-slate-800/50">
+                    <div class="h-12 w-12 rounded-full bg-cover bg-center ring-2 ring-primary/20"
+                        data-alt="Portrait of Mateo R. smiling in casual wear"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDiGm6yXnAAUcSMT_NDj1HNPUN-HlJWG4VU3mcpBxvKRRC_qgqrZTsIPmt8CuCBYm6XTOeUdh63cKeeXh3_22UCQ5IBZsvjU4ntG2_LDPySliqNpCJCbhlbWE9r6y6Ib4auFcb4Mys222EcdcnhwonVXoXOa9IWxGCcSdtWIaMBnFNAIsQ3v7-3B5H30YtGLUiVH4HggCV506WwZ9IV0NwXvjcuS7DetTvkUC3JwuW3Qt8Nc57NxXvVbSQhokPdCFAoYoXetgaE-cyh');">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Mateo R.</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Madrid</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div
+                class="bg-white dark:bg-surface-dark p-8 rounded-xl shadow-lg border border-slate-100 dark:border-slate-800 flex flex-col relative group hover:-translate-y-1 transition-transform duration-300">
+                <div class="absolute top-6 right-6 text-primary/20 group-hover:text-primary/40 transition-colors">
+                    <span class="material-symbols-outlined text-6xl">format_quote</span>
+                </div>
+                <div class="flex gap-1 mb-6 text-primary">
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                    <span class="material-symbols-outlined fill-1">star</span>
+                </div>
+                <p class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-8 flex-grow">
+                    "Altamente recomendado para cualquiera que busque una estancia premium. Todo estaba impecable y
+                    bellamente diseñado. El anfitrión fue increíblemente amable."
+                </p>
+                <div class="flex items-center gap-4 mt-auto pt-6 border-t border-slate-100 dark:border-slate-800/50">
+                    <div class="h-12 w-12 rounded-full bg-cover bg-center ring-2 ring-primary/20"
+                        data-alt="Portrait of Elena K. looking professional"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0boknWbqvoXj8Ul7vHuJgcBOrM7RCxJidc4fEw3ZgRHU0VzoLrBug1IwuYKJ0BwJXp1qJHP31Df3_I3SZrBJs8xdpWqvm7wvCP4dcS-JHrlT1ZYHK9vMXtObIv_sY_M5crJlhrF-B6byLDrDgOWH4i-yQbRz72ELhK7itha9tp1_H3u_uS73jFclw_PsgA8iW0K4PaDjwkxc16tpEeBc96nI8IjZV8jQSghfAttnqXFEqyBSL-sStspnIapZFvEDRemuSYEGN43-9');">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Elena K.</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Buenos Aires</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer / CTA -->
+        <div class="mt-16 flex justify-center">
+            <button
+                class="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-primary-content transition duration-300 ease-out border-2 border-primary rounded-full shadow-md">
+                <span
+                    class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-primary group-hover:translate-x-0 ease">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </span>
+                <span
+                    class="absolute flex items-center justify-center w-full h-full text-primary-content transition-all duration-300 transform group-hover:translate-x-full ease dark:text-primary dark:group-hover:text-primary-content">Ver
+                    Todas las Reseñas</span>
+                <span class="relative invisible">Ver Todas las Reseñas</span>
+            </button>
+        </div>
+    </section>
+</body>
+
+</html>

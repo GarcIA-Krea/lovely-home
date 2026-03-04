@@ -1,0 +1,194 @@
+/* ============================================
+   INTERMEZZO — Cinematic Hummingbird Section
+   A poetic pause between functional sections.
+   ============================================ */
+
+.intermezzo {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Parallax Background — The Oil Painting */
+.parallaxBg {
+    position: absolute;
+    inset: -20% 0;
+    background-image: url('/images/colibri-painting.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    background-attachment: fixed;
+    will-change: transform;
+    z-index: 0;
+}
+
+/* Progressive overlay: dark edges, clear center */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 70% at 30% 50%,
+            rgba(29, 32, 18, 0.15) 0%,
+            rgba(29, 32, 18, 0.55) 60%,
+            rgba(29, 32, 18, 0.85) 100%);
+    z-index: 1;
+}
+
+/* Animated light rays — mimicking the painting's light beams */
+.lightRays {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.08;
+    background:
+        repeating-linear-gradient(105deg,
+            transparent 0%,
+            transparent 45%,
+            rgba(197, 225, 107, 0.15) 47%,
+            transparent 49%,
+            transparent 100%);
+    animation: shimmer 12s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% {
+        opacity: 0.04;
+        transform: translateX(-2%);
+    }
+
+    100% {
+        opacity: 0.1;
+        transform: translateX(2%);
+    }
+}
+
+/* Content wrapper */
+.content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+    padding: 4rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Decorative line above */
+.decorLine {
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    border: none;
+    margin: 0 auto;
+    opacity: 0.6;
+}
+
+/* Main poetic quote */
+.poeticQuote {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: white;
+    letter-spacing: 0.01em;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    .poeticQuote {
+        font-size: 2.125rem;
+    }
+}
+
+.poeticQuote em {
+    font-style: normal;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* Family story text — powerful short lines */
+.familyStory {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 560px;
+    font-weight: 400;
+}
+
+@media (min-width: 768px) {
+    .familyStory {
+        font-size: 1.125rem;
+    }
+}
+
+.familyStory strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Decorative bottom line */
+.decorLineBottom {
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(197, 225, 107, 0.4), transparent);
+    border: none;
+    margin: 0 auto;
+}
+
+/* Small attribution for the painting */
+.attribution {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* ============================================
+   Scroll-triggered fade-in animation
+   ============================================ */
+.fadeInUp {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fadeInUp.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays for sequential reveal */
+.delay1 {
+    transition-delay: 0.15s;
+}
+
+.delay2 {
+    transition-delay: 0.35s;
+}
+
+.delay3 {
+    transition-delay: 0.55s;
+}
+
+.delay4 {
+    transition-delay: 0.75s;
+}
+
+.delay5 {
+    transition-delay: 0.95s;
+}
+
+/* Mobile: disable fixed attachment (not supported on iOS) */
+@media (max-width: 1024px) {
+    .parallaxBg {
+        background-attachment: scroll;
+        inset: -10% 0;
+    }
+}

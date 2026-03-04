@@ -1,0 +1,6 @@
+[dotenv@17.3.1] injecting env (3) from .env.local -- tip: ­ƒñû agentic secret storage: https://dotenvx.com/as2
+­ƒöä Revirtiendo nombres a Amarilo...
+Ô£à Restaurado: Amarilo 201
+Ô£à Restaurado: Amarilo 202
+Ô£à Restaurado: Amarilo 301
+­ƒÅü Proceso terminado.

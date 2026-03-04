@@ -1,0 +1,8 @@
+[dotenv@17.3.1] injecting env (3) from .env.local -- tip: ÔÜÖ´©Å  override existing env vars with { override: true }
+­ƒÜÇ Starting property updates...
+Ô£à Updated Amarilo 201 -> Amarillo 201 with image /images/properties/amarillo-201.jpg
+Ô£à Updated Amarilo 202 -> Amarillo 202 with image /images/properties/amarillo-202.jpg
+Ô£à Updated Amarilo 301 -> Amarillo 301 with image /images/properties/amarillo-301.jpg
+Ô£à Updated Aruna 201 -> Aruna 201 with image /images/properties/aruna-201.jpg
+Ô£à Updated Aruna 202 -> Aruna 202 with image /images/properties/aruna-202.jpg
+­ƒÅü Updates finished!

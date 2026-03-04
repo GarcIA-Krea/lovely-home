@@ -1,0 +1,295 @@
+.container {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+}
+
+.imageOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.bgImage {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.container:hover .bgImage {
+    transform: scale(1.05);
+}
+
+.gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.4) 40%,
+            rgba(0, 0, 0, 0.2) 60%,
+            rgba(0, 0, 0, 0.1) 100%);
+}
+
+/* Adjust gradient for Right-aligned content */
+.contentRight~.gradient {
+    background: linear-gradient(to left,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.4) 40%,
+            rgba(0, 0, 0, 0.2) 60%,
+            rgba(0, 0, 0, 0.1) 100%);
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.contentLeft {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.contentRight {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.textWrapper {
+    max-width: 500px;
+    color: white;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+.features {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.feature span:first-child {
+    color: var(--primary);
+    font-size: 1.75rem;
+}
+
+.feature span:last-child {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.ratingValue {
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.reviewCount {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+}
+
+.pricing {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.priceContainer {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.currency {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.unit {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.primaryBtn {
+    background: var(--primary);
+    color: var(--bg-dark);
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(197, 225, 107, 0.2);
+}
+
+.primaryBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(197, 225, 107, 0.3);
+}
+
+.secondaryBtn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondaryBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.airbnbBtn {
+    background: #FF5A5F;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(255, 90, 95, 0.2);
+}
+
+.airbnbBtn:hover {
+    background: #FF385C;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(255, 90, 95, 0.3);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .content {
+        padding: 0 2rem;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .contentLeft,
+    .contentRight {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .features {
+        justify-content: center;
+    }
+
+    .rating {
+        justify-content: center;
+    }
+
+    .priceContainer {
+        justify-content: center;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+}
