@@ -1,9 +1,9 @@
-'use client';
-
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from '@/context/LanguageContext';
 import styles from './Intermezzo.module.css';
 
 const Intermezzo = () => {
+    const { t } = useTranslation();
     const sectionRef = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);
 
@@ -27,6 +27,25 @@ const Intermezzo = () => {
     const fadeClass = (delay: string) =>
         `${styles.fadeInUp} ${isVisible ? styles.visible : ''} ${delay}`;
 
+    const highlightText = (text: string, words: string[]) => {
+        if (!text) return text;
+        let highlighted = false;
+        let regex = new RegExp(`(${words.join('|')})`, 'gi');
+        
+        const parts = text.split(regex);
+        return parts.map((part, i) => {
+            if (!highlighted && words.some(w => w.toLowerCase() === part.toLowerCase())) {
+                highlighted = true;
+                return <span key={i} className={styles.highlight}>{part}</span>;
+            }
+            return part;
+        });
+    };
+
+    // Words to highlight in different languages
+    const quoteHighlight = ['familia', 'family', 'família', 'famille', 'familie'];
+    const storyHighlight = ['casa', 'home', 'zuhause'];
+
     return (
         <section ref={sectionRef} className={styles.intermezzo}>
             {/* Parallax Oil Painting Background */}
@@ -39,22 +58,17 @@ const Intermezzo = () => {
                 <hr className={`${styles.decorLine} ${fadeClass(styles.delay1)}`} />
 
                 <p className={`${styles.poeticQuote} ${fadeClass(styles.delay2)}`}>
-                    &ldquo;Como el colibrí que encuentra su hogar entre las montañas del
-                    Valle de Aburrá, creamos un espacio donde cada huésped se sienta{' '}
-                    <em>en familia</em>.&rdquo;
+                    &ldquo;{highlightText(t.intermezzo.quote, quoteHighlight)}&rdquo;
                 </p>
 
                 <p className={`${styles.familyStory} ${fadeClass(styles.delay3)}`}>
-                    Somos una familia paisa que convirtió su hogar en el tuyo.
-                    Cada detalle — desde esta pintura que nos acompaña cada mañana
-                    hasta la vista de las montañas — fue pensado para que te sientas{' '}
-                    <strong>en casa</strong>.
+                    {highlightText(t.intermezzo.story, storyHighlight)}
                 </p>
 
                 <hr className={`${styles.decorLineBottom} ${fadeClass(styles.delay4)}`} />
 
                 <span className={`${styles.attribution} ${fadeClass(styles.delay5)}`}>
-                    Óleo original · Casa Lovely Home · Medellín
+                    {t.intermezzo.attribution}
                 </span>
             </div>
         </section>

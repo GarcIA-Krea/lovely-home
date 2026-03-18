@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
 import Clarity from "@/components/Analytics/Clarity";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -34,8 +35,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${plusJakartaSans.variable} ${inter.variable}`}>
-        <Clarity id={process.env.NEXT_PUBLIC_CLARITY_ID || ""} />
-        {children}
+        <LanguageProvider>
+          <Clarity id={process.env.NEXT_PUBLIC_CLARITY_ID || ""} />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

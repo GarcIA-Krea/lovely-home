@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './success.module.css';
 

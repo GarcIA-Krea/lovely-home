@@ -1,8 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './Hero.module.css';
+import { useTranslation } from '@/context/LanguageContext';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.hero}>
       {/* Background Image with Overlay */}
@@ -27,13 +31,14 @@ const Hero = () => {
           </div>
 
           <nav className={styles.nav}>
-            <a href="#" className={styles.navLink}>Destinations</a>
-            <a href="#" className={styles.navLink}>Membership</a>
-            <a href="#" className={styles.navLink}>About Us</a>
+            <a href="#" className={styles.navLink}>{t.nav.destinations}</a>
+            <a href="#" className={styles.navLink}>{t.nav.membership}</a>
+            <a href="#" className={styles.navLink}>{t.nav.about}</a>
           </nav>
 
           <div className={styles.actions}>
-            <a href="#" className={styles.login}>Log In</a>
+            <LanguageSelector />
+            <a href="#" className={styles.login}>Login</a>
             <button className={styles.signUp}>Sign Up</button>
             <button className={styles.mobileMenu}>
               <span className="material-symbols-outlined" style={{ fontSize: '2rem' }}>menu</span>
@@ -45,26 +50,24 @@ const Hero = () => {
         <main className={styles.main}>
           <div className={styles.badge}>
             <span className={styles.dot}></span>
-            <span className={styles.badgeText}>Premium Living</span>
+            <span className={styles.badgeText}>{t.hero.badge}</span>
           </div>
 
           <h1 className={styles.title}>
-            Tu Hogar en <br />
-            <span className={styles.highlight}>Medellín</span>
+            {t.hero.title} <br />
+            <span className={styles.highlight}>{t.hero.location}</span>
           </h1>
 
-          <p className={styles.subtitle}>
-            Cerca de todo lo que necesitas. Experimenta el lujo minimalista en el corazón de la ciudad de la eterna primavera.
-          </p>
+          <p className={styles.subtitle}>{t.hero.subtitle}</p>
 
           <div className={styles.ctas}>
             <button className={styles.primaryBtn}>
-              <span>Explorar Alojamientos</span>
+              <span>{t.hero.explore}</span>
               <span className="material-symbols-outlined">arrow_forward</span>
             </button>
             <button className={styles.secondaryBtn}>
               <span className="material-symbols-outlined">play_circle</span>
-              <span>Ver Video</span>
+              <span>{t.hero.video}</span>
             </button>
           </div>
 
@@ -72,12 +75,12 @@ const Hero = () => {
           <div className={styles.stats}>
             <div className={styles.statItem}>
               <p className={styles.statValue}>4.9<span>/5</span></p>
-              <p className={styles.statLabel}>Rating</p>
+              <p className={styles.statLabel}>{t.hero.rating}</p>
             </div>
             <div className={styles.divider}></div>
             <div className={styles.statItem}>
-              <p className={styles.statValue}>120<span>+</span></p>
-              <p className={styles.statLabel}>Propiedades</p>
+              <p className={styles.statValue}>5</p>
+              <p className={styles.statLabel}>{t.hero.properties}</p>
             </div>
             <div className={styles.divider}></div>
             <div className={styles.avatars}>
@@ -96,8 +99,8 @@ const Hero = () => {
               <span className="material-symbols-outlined">wifi</span>
             </div>
             <div>
-              <h3 className={styles.featureTitle}>High-Speed WiFi</h3>
-              <p className={styles.featureDescription}>Perfect for remote work nomads.</p>
+              <h3 className={styles.featureTitle}>{t.features.wifi}</h3>
+              <p className={styles.featureDescription}>{t.features.wifi_desc}</p>
             </div>
           </div>
           <div className={styles.featureCard}>
@@ -105,8 +108,8 @@ const Hero = () => {
               <span className="material-symbols-outlined">location_on</span>
             </div>
             <div>
-              <h3 className={styles.featureTitle}>Prime Locations</h3>
-              <p className={styles.featureDescription}>El Poblado, Laureles, and more.</p>
+              <h3 className={styles.featureTitle}>{t.features.locations}</h3>
+              <p className={styles.featureDescription}>{t.features.locations_desc}</p>
             </div>
           </div>
           <div className={styles.featureCard}>
@@ -114,8 +117,8 @@ const Hero = () => {
               <span className="material-symbols-outlined">cleaning_services</span>
             </div>
             <div>
-              <h3 className={styles.featureTitle}>Weekly Cleaning</h3>
-              <p className={styles.featureDescription}>Professional service included.</p>
+              <h3 className={styles.featureTitle}>{t.features.cleaning}</h3>
+              <p className={styles.featureDescription}>{t.features.cleaning_desc}</p>
             </div>
           </div>
         </div>

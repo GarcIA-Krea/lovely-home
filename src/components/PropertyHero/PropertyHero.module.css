@@ -216,23 +216,33 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-.airbnbBtn {
-    background: #FF5A5F;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 0.75rem;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
+.airbnbBtn, .bookingBtnExternal {
+    display: flex;
     align-items: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(255, 90, 95, 0.2);
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: white;
 }
 
 .airbnbBtn:hover {
-    background: #FF385C;
+    background: rgba(255, 90, 95, 0.2);
+    border-color: rgba(255, 90, 95, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(255, 90, 95, 0.3);
+    color: #ff5a5f;
+}
+
+.bookingBtnExternal:hover {
+    background: rgba(0, 53, 128, 0.2);
+    border-color: rgba(0, 53, 128, 0.6);
+    transform: translateY(-2px);
+    color: #4a90e2;
 }
 
 @keyframes fadeInUp {

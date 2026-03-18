@@ -51,27 +51,35 @@
     font-size: 1.125rem;
 }
 
-/* Grid */
+/* Grid / Slider */
 .grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 2rem;
+    padding-bottom: 2rem; /* Give some space for the scrollbar */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
 }
 
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.grid::-webkit-scrollbar {
+    height: 8px;
 }
 
-@media (min-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.grid::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
 }
 
 /* Card */
 .card {
+    flex: 0 0 320px; /* Fixed width for each card so they scroll */
+    scroll-snap-align: start;
     background: #1a1a1a;
     padding: 2rem;
     border-radius: 1rem;
@@ -139,6 +147,9 @@
     background-size: cover;
     background-position: center;
     box-shadow: 0 0 0 2px rgba(197, 225, 107, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .userName {

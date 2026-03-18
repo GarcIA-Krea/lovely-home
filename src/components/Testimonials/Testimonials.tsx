@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { useTranslation } from '@/context/LanguageContext';
 import styles from './Testimonials.module.css';
 
 interface Testimonial {
@@ -10,35 +13,79 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
     {
-        name: 'Sarah J.',
-        city: 'New York City',
-        quote: '"Quedarse en Lovely Home fue un sueño absoluto. La atención al detalle y el diseño curado hicieron que nuestro viaje fuera inolvidable. Definitivamente volveremos el próximo año."',
-        avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDR6GjiUTnsBtQzIoxbNmfoRgO23pGWDoXLlpok5J11rj_lipZhn7-h8D4gmnFsz8CM3OQxnTCi-ohGg5TYM3NrrQXgdcadFz3JfwxPWqkgfPAcIqvTjOk8XPO55g6414ujiycVI7H6i6T3NZJL8sEryEHtNifDRCnC2Ranzo3pjOK8qKA6TPVIRQ9XsI09olUotoW3FpvLL3oj97XZyHodPjp3TqBMBbXPUTE7dOAFiO4V6eu-irMEpQbR0BolXMmbihZNpwAhoU1T',
+        name: 'Daniel',
+        city: 'Germany',
+        quote: '"¡Pasamos dos semanas en Medellín con cuatro personas y el lugar fue perfecto! El lugar estaba muy limpio y equipado con todo lo que necesitábamos. La ubicación era muy segura y excelente para explorar El Poblado a pie..."',
+        avatarUrl: '', 
     },
     {
-        name: 'Mateo R.',
-        city: 'Madrid',
-        quote: '"Una experiencia de lujo desde el primer momento. La ubicación era perfecta y el diseño interior, exquisito. Superó todas nuestras expectativas por mucho."',
-        avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDiGm6yXnAAUcSMT_NDj1HNPUN-HlJWG4VU3mcpBxvKRRC_qgqrZTsIPmt8CuCBYm6XTOeUdh63cKeeXh3_22UCQ5IBZsvjU4ntG2_LDPySliqNpCJCbhlbWE9r6y6Ib4auFcb4Mys222EcdcnhwonVXoXOa9IWxGCcSdtWIaMBnFNAIsQ3v7-3B5H30YtGLUiVH4HggCV506WwZ9IV0NwXvjcuS7DetTvkUC3JwuW3Qt8Nc57NxXvVbSQhokPdCFAoYoXetgaE-cyh',
+        name: 'Char',
+        city: 'Netherlands',
+        quote: '"Tuve una estancia encantadora en casa de María, hasta el punto de que quería extenderme y quedarme más tiempo... La ubicación era increíble, fácilmente transitable a donde está la acción..."',
+        avatarUrl: '',
     },
     {
-        name: 'Elena K.',
-        city: 'Buenos Aires',
-        quote: '"Altamente recomendado para cualquiera que busque una estancia premium. Todo estaba impecable y bellamente diseñado. El anfitrión fue increíblemente amable."',
-        avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0boknWbqvoXj8Ul7vHuJgcBOrM7RCxJidc4fEw3ZgRHU0VzoLrBug1IwuYKJ0BwJXp1qJHP31Df3_I3SZrBJs8xdpWqvm7wvCP4dcS-JHrlT1ZYHK9vMXtObIv_sY_M5crJlhrF-B6byLDrDgOWH4i-yQbRz72ELhK7itha9tp1_H3u_uS73jFclw_PsgA8iW0K4PaDjwkxc16tpEeBc96nI8IjZV8jQSghfAttnqXFEqyBSL-sStspnIapZFvEDRemuSYEGN43-9',
+        name: 'Abel',
+        city: 'USA',
+        quote: '"Great place, really comfortable and clean. Highly recommend for anyone looking for a well-located stay in Medellin."',
+        avatarUrl: '',
     },
+    {
+        name: 'Owen',
+        city: 'USA',
+        quote: '"The place was amazing, the view is incredible. Maria was a great host and very helpful during our stay. Clean, modern, and in a fantastic neighborhood."',
+        avatarUrl: '',
+    },
+    {
+        name: 'Kieran',
+        city: 'USA',
+        quote: '"Gemas: María, su madre y este lugar son simplemente extraordinarios. Todo fue impecable, desde la comunicación hasta el confort del apartamento. Definitivamente regresaremos."',
+        avatarUrl: '',
+    },
+    {
+        name: 'Thais Venancio',
+        city: 'Brazil',
+        quote: '"Excelente estadia, apartamento limpo e bem localizado. Maria foi muito atenciosa e prestativa em todos los momentos."',
+        avatarUrl: '',
+    },
+    {
+        name: 'Le\'',
+        city: 'USA',
+        quote: '"Maria was super helpful and the place was great. The location is perfect for exploring the city and the apartment has everything you need."',
+        avatarUrl: '',
+    },
+    {
+        name: 'Angie',
+        city: 'USA',
+        quote: '"El lugar era impresionante y estaba limpio. Se pareció a las fotos, nos sentimos como en casa y no queríamos irnos. También tienes una vista increíble por la noche. María fue muy dulce, receptiva y amable."',
+        avatarUrl: '',
+    },
+    {
+        name: 'Gian',
+        city: 'USA',
+        quote: '"The location is perfect, the apartment is beautiful. Great value for money and Maria is an excellent host who goes above and beyond."',
+        avatarUrl: '',
+    },
+    {
+        name: 'Marco',
+        city: 'Italy',
+        quote: '"Excelente ubicación, todo muy limpio. Maria siempre estuvo disponible para ayudarnos con cualquier cosa. Muy recomendable para familias o grupos pequeños."',
+        avatarUrl: '',
+    }
 ];
 
 const Testimonials = () => {
+    const { t } = useTranslation();
+
     return (
         <section className={styles.section}>
             <div className={styles.container}>
                 {/* Header */}
                 <div className={styles.headerGroup}>
-                    <span className={styles.label}>Testimonios</span>
-                    <h2 className={styles.title}>Lo Que Nuestros Huéspedes Dicen</h2>
+                    <span className={styles.label}>{t.testimonials.label}</span>
+                    <h2 className={styles.title}>{t.testimonials.title}</h2>
                     <p className={styles.subtitle}>
-                        Historias reales de viajeros que encontraron su hogar lejos de casa.
+                        {t.location.subtitle}
                     </p>
                 </div>
 
@@ -65,8 +112,10 @@ const Testimonials = () => {
                             <div className={styles.userInfo}>
                                 <div
                                     className={styles.avatar}
-                                    style={{ backgroundImage: `url('${t.avatarUrl}')` }}
-                                />
+                                    style={t.avatarUrl ? { backgroundImage: `url('${t.avatarUrl}')` } : { backgroundColor: '#e2e8f0' }}
+                                >
+                                    {!t.avatarUrl && <span style={{ color: '#64748b', fontWeight: 'bold' }}>{t.name.charAt(0)}</span>}
+                                </div>
                                 <div>
                                     <h4 className={styles.userName}>{t.name}</h4>
                                     <p className={styles.userCity}>{t.city}</p>
@@ -79,7 +128,7 @@ const Testimonials = () => {
                 {/* CTA */}
                 <div className={styles.cta}>
                     <button className={styles.ctaBtn}>
-                        Ver Todas las Reseñas
+                        {t.booking.details}
                     </button>
                 </div>
             </div>

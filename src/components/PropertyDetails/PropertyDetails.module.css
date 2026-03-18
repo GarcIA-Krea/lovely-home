@@ -1,0 +1,328 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal {
+    background: var(--bg-dark);
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.closeBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.gallerySection {
+    flex: 1.4;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.mainImageWrapper {
+    flex: 1;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: fadeIn 0.5s ease;
+}
+
+.thumbnails {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.thumbnail {
+    aspect-ratio: 1;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.activeThumbnail {
+    border-color: var(--primary);
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+.thumbnail:hover {
+    opacity: 1;
+}
+
+.infoSection {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.header {
+    margin-bottom: 2.5rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+}
+
+.rating span:first-child {
+    color: var(--primary);
+}
+
+.ratingValue {
+    font-weight: 700;
+}
+
+.reviewCount {
+    opacity: 0.5;
+    font-size: 0.875rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.specs {
+    display: flex;
+    gap: 2rem;
+}
+
+.spec {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    color: white;
+}
+
+.spec span:first-child {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.spec span:last-child {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.description h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.description p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.pricing {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.priceInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceLabel {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.priceValue {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.currency {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.amount {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bookBtn {
+    background: var(--primary);
+    color: var(--bg-dark);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.bookBtn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(197, 225, 107, 0.3);
+}
+
+.externalLinks {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.airbnbLink, .bookingLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+}
+
+.airbnbLink:hover {
+    background: rgba(255, 90, 95, 0.1);
+    border-color: rgba(255, 90, 95, 0.4);
+    transform: translateY(-2px);
+    color: #ff5a5f;
+}
+
+.bookingLink:hover {
+    background: rgba(0, 53, 128, 0.1);
+    border-color: rgba(0, 53, 128, 0.4);
+    transform: translateY(-2px);
+    color: #4a90e2;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fadeIn { animation: fadeIn 0.4s ease-out; }
+.fadeOut { animation: fadeIn 0.4s ease-in reverse; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideDown {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(40px) scale(0.95); }
+}
+
+.slideUp { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.slideDown { animation: slideDown 0.4s ease-in; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container { flex-direction: column; }
+    .modal { height: 95vh; overflow-y: auto; }
+    .gallerySection { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+}
