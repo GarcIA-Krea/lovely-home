@@ -60,17 +60,16 @@ export async function POST(req: Request) {
 
         const reservationId = reservation.id;
 
-        // 2. Generar el Hash de Wompi
-        // format: reference + amountInCents + currency + integritySecret
+        // 2. Generar el Hash de Wompi (Integridad)
+        // El hash de integridad de Wompi se genera con SHA256 de: 
+        // cadena concatenada: referencia + monto_en_centavos + moneda + secreto_integridad
         const reference = `RES-${reservationId}`;
         const currencyCode = currency.toUpperCase();
         
         let signature = '';
         if (wompiIntegritySecret) {
             const rawString = `${reference}${amountInCents}${currencyCode}${wompiIntegritySecret}`;
-            const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawString));
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            signature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            signature = crypto.createHash('sha256').update(rawString).digest('hex');
         }
 
         // 3. Crear la URL del Checkout de Wompi

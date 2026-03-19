@@ -83,13 +83,13 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                 </button>
 
                 <div className={styles.header}>
-                    <h2>Reserva Directa</h2>
+                    <h2>{t.booking.title}</h2>
                     <p>{propertyName}</p>
                 </div>
 
                 <div className={styles.inputs}>
                     <div className={styles.inputGroup} style={{ gridColumn: '1 / -1' }}>
-                        <label>Nombre Completo</label>
+                        <label>{t.booking.name}</label>
                         <input
                             type="text"
                             placeholder="Ej. Juan Pérez"
@@ -98,7 +98,7 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                         />
                     </div>
                     <div className={styles.inputGroup} style={{ gridColumn: '1 / -1' }}>
-                        <label>Correo Electrónico</label>
+                        <label>{t.booking.email}</label>
                         <input
                             type="email"
                             placeholder="juan@email.com"
@@ -107,7 +107,7 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label>Check-in</label>
+                        <label>{t.booking.checkin}</label>
                         <input
                             type="date"
                             value={checkIn}
@@ -116,7 +116,7 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <label>Check-out</label>
+                        <label>{t.booking.checkout}</label>
                         <input
                             type="date"
                             value={checkOut}
@@ -129,11 +129,11 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                 {nights > 0 && (
                     <div className={styles.summary}>
                         <div className={styles.summaryRow}>
-                            <span>{pricePerNight.toLocaleString()} {currency} x {nights} noches</span>
+                            <span>{pricePerNight.toLocaleString()} {currency} x {nights} {t.booking.nights}</span>
                             <span>{(pricePerNight * nights).toLocaleString()} {currency}</span>
                         </div>
                         <div className={styles.totalRow}>
-                            <span>Total Estimado</span>
+                            <span>{t.booking.totalEstimated}</span>
                             <span>{totalPrice.toLocaleString()} {currency}</span>
                         </div>
                     </div>
@@ -149,7 +149,7 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                 </button>
 
                 <p className={styles.disclaimer}>
-                    Al reservar directo ahorras hasta un 20% en comisiones de plataformas externas.
+                    {t.booking.disclaimer}
                 </p>
             </div>
         </div>

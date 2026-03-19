@@ -50,7 +50,14 @@ export const translations = {
             direct: "Reservar Directo",
             calendar: "Calendario de Disponibilidad",
             pay: "Confirmar y Pagar",
-            redirecting: "Redirigiendo a Pago..."
+            redirecting: "Redirigiendo a Pago...",
+            title: "Reserva Directa",
+            name: "Nombre Completo",
+            email: "Correo Electrónico",
+            checkin: "Check-in",
+            checkout: "Check-out",
+            totalEstimated: "Total Estimado",
+            disclaimer: "Al reservar directo ahorras hasta un 20% en comisiones de plataformas externas."
         },
         testimonials: {
             label: "Testimonios",
@@ -107,7 +114,14 @@ export const translations = {
             direct: "Book Direct",
             calendar: "Availability Calendar",
             pay: "Confirm and Pay",
-            redirecting: "Redirecting to Payment..."
+            redirecting: "Redirecting to Payment...",
+            title: "Direct Booking",
+            name: "Full Name",
+            email: "Email Address",
+            checkin: "Check-in",
+            checkout: "Check-out",
+            totalEstimated: "Estimated Total",
+            disclaimer: "By booking direct you save up to 20% on external platform commissions."
         },
         testimonials: {
             label: "Testimonials",
@@ -164,7 +178,14 @@ export const translations = {
             direct: "Reservar Direto",
             calendar: "Calendário de Disponibilidade",
             pay: "Confirmar e Pagar",
-            redirecting: "Redirecionando para Pagamento..."
+            redirecting: "Redirecionando para Pagamento...",
+            title: "Reserva Direta",
+            name: "Nome Completo",
+            email: "E-mail",
+            checkin: "Check-in",
+            checkout: "Check-out",
+            totalEstimated: "Total Estimado",
+            disclaimer: "Ao reservar direto você economiza até 20% em comissões de plataformas externas."
         },
         testimonials: {
             label: "Depoimentos",
@@ -221,7 +242,14 @@ export const translations = {
             direct: "Réserver Directement",
             calendar: "Calendrier de Disponibilité",
             pay: "Confirmer et Payer",
-            redirecting: "Redirection vers le paiement..."
+            redirecting: "Redirection vers le paiement...",
+            title: "Réservation Directe",
+            name: "Nom Complet",
+            email: "Adresse E-mail",
+            checkin: "Arrivée",
+            checkout: "Départ",
+            totalEstimated: "Total Estimé",
+            disclaimer: "En réservant directement, vous économisez jusqu'à 20 % sur les commissions des plateformes externes."
         },
         testimonials: {
             label: "Témoignages",
@@ -278,7 +306,14 @@ export const translations = {
             direct: "Direkt Buchen",
             calendar: "Verfügbarkeitskalender",
             pay: "Bestätigen und Bezahlen",
-            redirecting: "Weiterleitung zur Zahlung..."
+            redirecting: "Weiterleitung zur Zahlung...",
+            title: "Direktbuchung",
+            name: "Vollständiger Name",
+            email: "E-Mail-Adresse",
+            checkin: "Check-in",
+            checkout: "Check-out",
+            totalEstimated: "Geschätzter Gesamtbetrag",
+            disclaimer: "Durch Direktbuchung sparen Sie bis zu 20 % an externen Plattformprovisionen."
         },
         testimonials: {
             label: "Testimonials",
@@ -335,7 +370,14 @@ export const translations = {
             direct: "Prenota Direttamente",
             calendar: "Calendario Disponibilità",
             pay: "Conferma e Paga",
-            redirecting: "Reindirizzamento al Pagamento..."
+            redirecting: "Reindirizzamento al Pagamento...",
+            title: "Prenotazione Diretta",
+            name: "Nome Completo",
+            email: "Indirizzo E-mail",
+            checkin: "Check-in",
+            checkout: "Check-out",
+            totalEstimated: "Totale Stimato",
+            disclaimer: "Prenotando direttamente risparmi fino al 20% sulle commissioni delle piattaforme esterne."
         },
         testimonials: {
             label: "Testimonianze",

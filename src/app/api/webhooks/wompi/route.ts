@@ -18,20 +18,16 @@ export async function POST(req: Request) {
             const timestamp = payload.timestamp;
             
             // Reconstruir el string para el hash basado en las propiedades que Wompi pide
-            let rawString = '';
-            for (const prop of properties) {
+            const rawString = properties.map((prop: string) => {
                 const keys = prop.split('.');
                 let value: any = payload.data;
                 for (const key of keys) {
                     value = value[key];
                 }
-                rawString += value.toString();
-            }
-            rawString += timestamp.toString() + eventsSecret;
+                return value.toString();
+            }).join('') + timestamp.toString() + eventsSecret;
             
-            const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawString));
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const calculatedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            const calculatedHash = crypto.createHash('sha256').update(rawString).digest('hex');
             
             if (calculatedHash !== checksum) {
                 console.error('Firma de Webhook de Wompi Invalida');
