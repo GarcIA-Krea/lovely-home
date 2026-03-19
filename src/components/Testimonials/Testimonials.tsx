@@ -82,12 +82,7 @@ const Testimonials = () => {
                     ))}
                 </div>
 
-                {/* CTA */}
-                <div className={styles.cta}>
-                    <button className={styles.ctaBtn}>
-                        {t.booking.details}
-                    </button>
-                </div>
+                {/* CTA Removed as requested */}
             </div>
         </section>
     );
