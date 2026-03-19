@@ -77,12 +77,30 @@
 }
 
 .thumbnails {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+}
+
+.thumbnails::-webkit-scrollbar {
+    height: 4px;
+}
+
+.thumbnails::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+.thumbnails::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
 }
 
 .thumbnail {
+    min-width: 5rem;
+    width: 5rem;
     aspect-ratio: 1;
     border-radius: 0.75rem;
     overflow: hidden;
@@ -90,6 +108,7 @@
     border: 2px solid transparent;
     transition: all 0.3s ease;
     opacity: 0.6;
+    flex-shrink: 0;
 }
 
 .thumbnail img {
