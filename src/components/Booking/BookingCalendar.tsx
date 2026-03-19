@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './BookingCalendar.module.css';
+import { useTranslation } from '@/context/LanguageContext';
 
 interface BookingCalendarProps {
     propertyId: string;
@@ -12,8 +13,11 @@ interface BookingCalendarProps {
 }
 
 export default function BookingCalendar({ propertyId, propertyName, pricePerNight, currency, onClose }: BookingCalendarProps) {
+    const { t } = useTranslation();
     const [checkIn, setCheckIn] = useState<string>('');
     const [checkOut, setCheckOut] = useState<string>('');
+    const [guestName, setGuestName] = useState<string>('');
+    const [guestEmail, setGuestEmail] = useState<string>('');
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [nights, setNights] = useState<number>(0);
 
@@ -37,7 +41,7 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
     }, [checkIn, checkOut, pricePerNight]);
 
     const handleBooking = async () => {
-        if (nights > 0) {
+        if (nights > 0 && guestName.trim() !== '' && guestEmail.trim() !== '') {
             setLoading(true);
             try {
                 const response = await fetch('/api/checkout', {
@@ -46,6 +50,8 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                     body: JSON.stringify({
                         propertyId,
                         propertyName,
+                        guestName,
+                        guestEmail,
                         pricePerNight,
                         checkIn,
                         checkOut,
@@ -82,6 +88,24 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                 </div>
 
                 <div className={styles.inputs}>
+                    <div className={styles.inputGroup} style={{ gridColumn: '1 / -1' }}>
+                        <label>Nombre Completo</label>
+                        <input
+                            type="text"
+                            placeholder="Ej. Juan Pérez"
+                            value={guestName}
+                            onChange={(e) => setGuestName(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles.inputGroup} style={{ gridColumn: '1 / -1' }}>
+                        <label>Correo Electrónico</label>
+                        <input
+                            type="email"
+                            placeholder="juan@email.com"
+                            value={guestEmail}
+                            onChange={(e) => setGuestEmail(e.target.value)}
+                        />
+                    </div>
                     <div className={styles.inputGroup}>
                         <label>Check-in</label>
                         <input
@@ -117,11 +141,11 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
 
                 <button
                     className={styles.bookBtn}
-                    disabled={nights <= 0 || loading}
+                    disabled={nights <= 0 || !guestName || !guestEmail || loading}
                     onClick={handleBooking}
                 >
                     <span className="material-symbols-outlined">bolt</span>
-                    {loading ? 'Redirigiendo a Pago...' : 'Confirmar y Pagar'}
+                    {loading ? t.booking.redirecting : t.booking.pay}
                 </button>
 
                 <p className={styles.disclaimer}>

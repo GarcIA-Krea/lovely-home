@@ -3,7 +3,7 @@ export type Language = 'es' | 'en' | 'pt' | 'de' | 'fr' | 'it';
 export const translations = {
     es: {
         nav: {
-            destinations: "Destinos",
+            destinations: "Servicios",
             membership: "Membresía",
             about: "Nosotros"
         },
@@ -48,7 +48,9 @@ export const translations = {
             confirm: "Cancelación gratuita",
             details: "Ver Detalles",
             direct: "Reservar Directo",
-            calendar: "Calendario de Disponibilidad"
+            calendar: "Calendario de Disponibilidad",
+            pay: "Confirmar y Pagar",
+            redirecting: "Redirigiendo a Pago..."
         },
         testimonials: {
             label: "Testimonios",
@@ -58,7 +60,7 @@ export const translations = {
     },
     en: {
         nav: {
-            destinations: "Destinations",
+            destinations: "Services",
             membership: "Membership",
             about: "About Us"
         },
@@ -103,7 +105,9 @@ export const translations = {
             confirm: "Free cancellation",
             details: "View Details",
             direct: "Book Direct",
-            calendar: "Availability Calendar"
+            calendar: "Availability Calendar",
+            pay: "Confirm and Pay",
+            redirecting: "Redirecting to Payment..."
         },
         testimonials: {
             label: "Testimonials",
@@ -113,7 +117,7 @@ export const translations = {
     },
     pt: {
         nav: {
-            destinations: "Destinos",
+            destinations: "Serviços",
             membership: "Assinatura",
             about: "Sobre Nós"
         },
@@ -158,7 +162,9 @@ export const translations = {
             confirm: "Cancelamento grátis",
             details: "Ver Detalhes",
             direct: "Reservar Direto",
-            calendar: "Calendário de Disponibilidade"
+            calendar: "Calendário de Disponibilidade",
+            pay: "Confirmar e Pagar",
+            redirecting: "Redirecionando para Pagamento..."
         },
         testimonials: {
             label: "Depoimentos",
@@ -168,7 +174,7 @@ export const translations = {
     },
     fr: {
         nav: {
-            destinations: "Destinations",
+            destinations: "Services",
             membership: "Adhésion",
             about: "À Propos"
         },
@@ -213,7 +219,9 @@ export const translations = {
             confirm: "Annulation gratuite",
             details: "Voir Détails",
             direct: "Réserver Directement",
-            calendar: "Calendrier de Disponibilité"
+            calendar: "Calendrier de Disponibilité",
+            pay: "Confirmer et Payer",
+            redirecting: "Redirection vers le paiement..."
         },
         testimonials: {
             label: "Témoignages",
@@ -223,7 +231,7 @@ export const translations = {
     },
     de: {
         nav: {
-            destinations: "Ziele",
+            destinations: "Dienstleistungen",
             membership: "Mitgliedschaft",
             about: "Über Uns"
         },
@@ -268,7 +276,9 @@ export const translations = {
             confirm: "Kostenlose Stornierung",
             details: "Details ansehen",
             direct: "Direkt Buchen",
-            calendar: "Verfügbarkeitskalender"
+            calendar: "Verfügbarkeitskalender",
+            pay: "Bestätigen und Bezahlen",
+            redirecting: "Weiterleitung zur Zahlung..."
         },
         testimonials: {
             label: "Testimonials",
@@ -278,7 +288,7 @@ export const translations = {
     },
     it: {
         nav: {
-            destinations: "Destinazioni",
+            destinations: "Servizi",
             membership: "Abbonamento",
             about: "Chi Siamo"
         },
@@ -323,7 +333,9 @@ export const translations = {
             confirm: "Cancellazione gratuita",
             details: "Vedi Dettagli",
             direct: "Prenota Direttamente",
-            calendar: "Calendario Disponibilità"
+            calendar: "Calendario Disponibilità",
+            pay: "Conferma e Paga",
+            redirecting: "Reindirizzamento al Pagamento..."
         },
         testimonials: {
             label: "Testimonianze",

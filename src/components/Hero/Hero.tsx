@@ -61,10 +61,6 @@ const Hero = () => {
           <p className={styles.subtitle}>{t.hero.subtitle}</p>
 
           <div className={styles.ctas}>
-            <button className={styles.primaryBtn}>
-              <span>{t.hero.explore}</span>
-              <span className="material-symbols-outlined">arrow_forward</span>
-            </button>
             <button className={styles.secondaryBtn}>
               <span className="material-symbols-outlined">play_circle</span>
               <span>{t.hero.video}</span>
