@@ -60,15 +60,26 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property, onClose, on
         
         return String(parsedField);
     };
-    // Combine main image with gallery
-    const allImages = [
+    // Combine main image with gallery and deduplicate
+    const allImages = Array.from(new Set([
         property.main_image_url,
         ...(property.property_images?.map(img => img.image_url) || [])
-    ];
+    ])).slice(0, 12);
 
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(onClose, 400); // Wait for animation
+    };
+
+    const scrollThumbnails = (direction: 'left' | 'right') => {
+        const container = document.getElementById('thumbnail-container');
+        if (container) {
+            const scrollAmount = 200;
+            container.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
     };
 
     // Close on escape key
@@ -93,16 +104,24 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property, onClose, on
                         <div className={styles.mainImageWrapper}>
                             <img src={activeImage} alt={getTranslation(property.name)} className={styles.mainImage} />
                         </div>
-                        <div className={styles.thumbnails}>
-                            {allImages.map((url, idx) => (
-                                <div 
-                                    key={idx} 
-                                    className={`${styles.thumbnail} ${activeImage === url ? styles.activeThumbnail : ''}`}
-                                    onClick={() => setActiveImage(url)}
-                                >
-                                    <img src={url} alt={`${getTranslation(property.name)} ${idx}`} />
-                                </div>
-                            ))}
+                        <div className={styles.thumbnailsWrapper}>
+                            <button className={styles.navBtn} onClick={() => scrollThumbnails('left')}>
+                                <span className="material-symbols-outlined">chevron_left</span>
+                            </button>
+                            <div className={styles.thumbnails} id="thumbnail-container">
+                                {allImages.map((url, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        className={`${styles.thumbnail} ${activeImage === url ? styles.activeThumbnail : ''}`}
+                                        onClick={() => setActiveImage(url)}
+                                    >
+                                        <img src={url} alt={`${getTranslation(property.name)} ${idx}`} />
+                                    </div>
+                                ))}
+                            </div>
+                            <button className={styles.navBtn} onClick={() => scrollThumbnails('right')}>
+                                <span className="material-symbols-outlined">chevron_right</span>
+                            </button>
                         </div>
                     </div>
 
