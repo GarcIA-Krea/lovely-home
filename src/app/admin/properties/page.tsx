@@ -38,20 +38,31 @@ export default function PropertiesAdminPage() {
 
     const handleSave = async (property: Property) => {
         setSavingId(property.id);
-        const { error } = await supabase
-            .from('properties')
-            .update({
-                price_per_night: property.price_per_night,
-                airbnb_url: property.airbnb_url,
-                booking_url: property.booking_url
-            })
-            .eq('id', property.id);
+        
+        try {
+            const res = await fetch('/api/admin/properties', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: property.id,
+                    price_per_night: property.price_per_night,
+                    airbnb_url: property.airbnb_url,
+                    booking_url: property.booking_url
+                })
+            });
+            const result = await res.json();
             
-        if (error) {
-            alert('Error al guardar: ' + error.message);
-        } else {
-            alert('¡Propiedad actualizada exitosamente!');
+            if (!res.ok || result.error) {
+                alert('Error al guardar: ' + (result.error || 'Error interno del servidor'));
+            } else {
+                alert('¡Propiedad actualizada exitosamente en la base de datos!');
+            }
+        } catch (error: any) {
+            alert('Error de red al intentar guardar: ' + error.message);
         }
+        
         setSavingId(null);
     };
 

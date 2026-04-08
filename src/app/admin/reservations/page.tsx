@@ -78,6 +78,45 @@ export default function ReservationsPage() {
         }
     };
 
+    const isExpired = (res: Reservation) => {
+        if (res.status !== 'pending') return false;
+        const createdAt = new Date(res.created_at);
+        const now = new Date();
+        const diffMins = Math.floor((now.getTime() - createdAt.getTime()) / 60000);
+        return diffMins > 15;
+    };
+
+    const getPendingText = (res: Reservation) => {
+        if (res.status !== 'pending') return '';
+        const createdAt = new Date(res.created_at);
+        const now = new Date();
+        const diffMins = Math.floor((now.getTime() - createdAt.getTime()) / 60000);
+        const remaining = 15 - diffMins;
+        if (remaining <= 0) return 'Expirada';
+        return `${remaining} min restantes`;
+    };
+
+    const clearExpired = async () => {
+        const expiredIds = reservations.filter(isExpired).map(r => r.id);
+        if (expiredIds.length === 0) {
+            alert('No hay reservas espiradas para limpiar.');
+            return;
+        }
+        
+        setLoading(true);
+        const { error } = await supabase
+            .from('reservations')
+            .update({ status: 'cancelled' })
+            .in('id', expiredIds);
+            
+        if (error) {
+            alert('Error al limpiar las reservas: ' + error.message);
+            setLoading(false);
+        } else {
+            fetchData();
+        }
+    };
+
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         const { error } = await supabase.from('reservations').insert([{
@@ -105,16 +144,28 @@ export default function ReservationsPage() {
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#1a1a1a', margin: 0 }}>Reservas</h1>
-                <button 
-                    onClick={() => setShowForm(!showForm)}
-                    style={{
-                        background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', 
-                        border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
-                    }}
-                >
-                    <span className="material-symbols-outlined">{showForm ? 'close' : 'add'}</span>
-                    {showForm ? 'Cancelar' : 'Nueva Reserva'}
-                </button>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button 
+                        onClick={clearExpired}
+                        style={{
+                            background: '#fdecea', color: '#c62828', padding: '0.75rem 1.5rem', borderRadius: '8px', 
+                            border: '1px solid #f4cdd2', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                        }}
+                    >
+                        <span className="material-symbols-outlined">delete_sweep</span>
+                        Limpiar Vencidas
+                    </button>
+                    <button 
+                        onClick={() => setShowForm(!showForm)}
+                        style={{
+                            background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', 
+                            border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                        }}
+                    >
+                        <span className="material-symbols-outlined">{showForm ? 'close' : 'add'}</span>
+                        {showForm ? 'Cancelar' : 'Nueva Reserva'}
+                    </button>
+                </div>
             </div>
 
             {showForm && (
@@ -205,10 +256,10 @@ export default function ReservationsPage() {
                                             borderRadius: '99px',
                                             fontSize: '0.75rem',
                                             fontWeight: 600,
-                                            background: res.status === 'confirmed' ? '#e6f4ea' : res.status === 'cancelled' ? '#fdecea' : '#fff3e0',
-                                            color: res.status === 'confirmed' ? '#2e7d32' : res.status === 'cancelled' ? '#c62828' : '#e65100',
+                                            background: res.status === 'confirmed' ? '#e6f4ea' : res.status === 'cancelled' ? '#fdecea' : isExpired(res) ? '#ffebee' : '#fff3e0',
+                                            color: res.status === 'confirmed' ? '#2e7d32' : res.status === 'cancelled' ? '#c62828' : isExpired(res) ? '#d32f2f' : '#e65100',
                                         }}>
-                                            {res.status.toUpperCase()}
+                                            {res.status === 'pending' ? (isExpired(res) ? 'EXPIRADA' : `PENDIENTE (${getPendingText(res)})`) : res.status.toUpperCase()}
                                         </span>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
