@@ -35,10 +35,15 @@ export default function ReviewsAdminPage() {
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { error } = await supabase.from('testimonials').insert([formData]);
+        const res = await fetch('/api/admin/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        const result = await res.json();
         
-        if (error) {
-            alert('Error al crear reseña: ' + error.message);
+        if (!res.ok || result.error) {
+            alert('Error al crear reseña: ' + (result.error || 'Desconocido'));
         } else {
             setFormData({ name: '', city: '', quote: '', avatar_url: '' });
             setShowForm(false);
@@ -49,9 +54,10 @@ export default function ReviewsAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm('¿Estás seguro de eliminar este testimonio?')) return;
         
-        const { error } = await supabase.from('testimonials').delete().eq('id', id);
-        if (error) {
-            alert('Error al eliminar: ' + error.message);
+        const res = await fetch(`/api/admin/reviews?id=${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (!res.ok || result.error) {
+            alert('Error al eliminar: ' + (result.error || 'Desconocido'));
         } else {
             fetchReviews();
         }

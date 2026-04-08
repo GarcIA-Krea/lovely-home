@@ -66,15 +66,17 @@ export default function ReservationsPage() {
     }, []);
 
     const updateStatus = async (id: string, newStatus: string) => {
-        const { error } = await supabase
-            .from('reservations')
-            .update({ status: newStatus })
-            .eq('id', id);
+        const res = await fetch('/api/admin/reservations', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'update_status', id, status: newStatus })
+        });
+        const result = await res.json();
         
-        if (!error) {
+        if (res.ok && result.success) {
             fetchData();
         } else {
-            alert('Error al actualizar el estado: ' + error.message);
+            alert('Error al actualizar el estado: ' + (result.error || 'Desconocido'));
         }
     };
 
@@ -99,18 +101,20 @@ export default function ReservationsPage() {
     const clearExpired = async () => {
         const expiredIds = reservations.filter(isExpired).map(r => r.id);
         if (expiredIds.length === 0) {
-            alert('No hay reservas espiradas para limpiar.');
+            alert('No hay reservas expiradas para limpiar.');
             return;
         }
         
         setLoading(true);
-        const { error } = await supabase
-            .from('reservations')
-            .update({ status: 'cancelled' })
-            .in('id', expiredIds);
+        const res = await fetch('/api/admin/reservations', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'clear_expired', expiredIds })
+        });
+        const result = await res.json();
             
-        if (error) {
-            alert('Error al limpiar las reservas: ' + error.message);
+        if (!res.ok || result.error) {
+            alert('Error al limpiar las reservas: ' + (result.error || 'Desconocido'));
             setLoading(false);
         } else {
             fetchData();
@@ -119,14 +123,19 @@ export default function ReservationsPage() {
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { error } = await supabase.from('reservations').insert([{
-            ...formData,
-            currency: 'COP',
-            status: 'confirmed'
-        }]);
+        const res = await fetch('/api/admin/reservations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ...formData,
+                currency: 'COP',
+                status: 'confirmed'
+            })
+        });
+        const result = await res.json();
         
-        if (error) {
-            alert('Error al crear reserva: ' + error.message);
+        if (!res.ok || result.error) {
+            alert('Error al crear reserva: ' + (result.error || 'Desconocido'));
         } else {
             setFormData({ guest_name: '', guest_email: '', property_id: '', check_in: '', check_out: '', total_price: 0 });
             setShowForm(false);
