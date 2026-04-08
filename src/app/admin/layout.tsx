@@ -26,7 +26,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     };
 
     return (
-        <div className={styles.adminContainer}>
+        <div className={styles.adminContainer} translate="no">
             <aside className={styles.sidebar}>
                 <div className={styles.brand}>Lovely <span>Admin</span></div>
                 <nav className={styles.nav}>
