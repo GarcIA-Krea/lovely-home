@@ -4,6 +4,7 @@
     background-color: #f4f4f7;
     color: #1a1a1a;
     font-family: var(--font-inter), sans-serif;
+    color-scheme: light;
 }
 
 .sidebar {
