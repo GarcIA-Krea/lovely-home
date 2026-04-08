@@ -219,7 +219,8 @@ export default function ReservationsPage() {
                         onClick={clearExpired}
                         style={{
                             background: '#fdecea', color: '#c62828', padding: '0.75rem 1.5rem', borderRadius: '8px', 
-                            border: '1px solid #f4cdd2', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                            border: '1px solid #f4cdd2', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                            fontFamily: 'inherit', fontSize: '0.9rem'
                         }}
                     >
                         <span className="material-symbols-outlined">delete_sweep</span>
@@ -229,7 +230,8 @@ export default function ReservationsPage() {
                         onClick={() => setShowForm(!showForm)}
                         style={{
                             background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', 
-                            border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                            border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                            fontFamily: 'inherit', fontSize: '0.9rem'
                         }}
                     >
                         <span className="material-symbols-outlined">{showForm ? 'close' : 'add'}</span>
@@ -239,22 +241,22 @@ export default function ReservationsPage() {
             </div>
 
             {showForm && (
-                <form onSubmit={handleCreate} style={{ background: '#fff', padding: '2rem', borderRadius: '12px', border: '1px solid #eaeaea', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <form onSubmit={handleCreate} style={{ background: '#fff', padding: '2rem', borderRadius: '12px', border: '1px solid #eaeaea', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', fontFamily: 'inherit' }}>
                     <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0, color: '#1a1a1a' }}>Anadir Reserva Manual</h2>
                     <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1rem' }}>Ingresa los datos para bloquear las fechas de una reserva directa.</p>
                     
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Nombre del Huésped</label>
-                            <input required value={formData.guest_name} onChange={e => setFormData({...formData, guest_name: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd' }} />
+                            <input required value={formData.guest_name} onChange={e => setFormData({...formData, guest_name: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Còrreo Electrónico</label>
-                            <input type="email" required value={formData.guest_email} onChange={e => setFormData({...formData, guest_email: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd' }} />
+                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Correo Electrónico</label>
+                            <input type="email" required value={formData.guest_email} onChange={e => setFormData({...formData, guest_email: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Propiedad</label>
-                            <select required value={formData.property_id} onChange={e => setFormData({...formData, property_id: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', background: '#fff' }}>
+                            <select required value={formData.property_id} onChange={e => setFormData({...formData, property_id: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', background: '#fff', fontFamily: 'inherit', fontSize: '0.9rem' }}>
                                 <option value="" disabled>Seleccionar...</option>
                                 {properties.map(p => (
                                     <option key={p.id} value={p.id}>{getPropName(p.name)}</option>
@@ -263,24 +265,24 @@ export default function ReservationsPage() {
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Check-in</label>
-                            <input type="date" required value={formData.check_in} onChange={e => setFormData({...formData, check_in: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd' }} />
+                            <input type="date" required value={formData.check_in} onChange={e => setFormData({...formData, check_in: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Check-out</label>
-                            <input type="date" required value={formData.check_out} onChange={e => setFormData({...formData, check_out: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd' }} />
+                            <input type="date" required value={formData.check_out} onChange={e => setFormData({...formData, check_out: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Precio Total (COP)</label>
-                            <input type="number" required value={formData.total_price || ''} onChange={e => setFormData({...formData, total_price: Number(e.target.value)})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd' }} />
+                            <input type="number" required value={formData.total_price || ''} onChange={e => setFormData({...formData, total_price: Number(e.target.value)})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
                         </div>
                     </div>
                     
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem', gap: '1rem' }}>
-                        <button type="button" onClick={handleWompiPayment} style={{ background: '#4c2882', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <button type="button" onClick={handleWompiPayment} style={{ background: '#4c2882', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'inherit', fontSize: '0.9rem' }}>
                             <span className="material-symbols-outlined">payments</span>
                             Pagar con Wompi
                         </button>
-                        <button type="submit" style={{ background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
+                        <button type="submit" style={{ background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.9rem' }}>
                             Confirmar Manualmente
                         </button>
                     </div>
