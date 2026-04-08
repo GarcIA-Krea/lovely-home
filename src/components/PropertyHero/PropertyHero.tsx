@@ -164,7 +164,7 @@ const PropertyHero: React.FC<PropertyHeroProps> = ({ property, index }) => {
 
             {showCalendar && (
                 <BookingCalendar
-                    propertyId={propertyName}
+                    propertyId={property.id}
                     propertyName={propertyName}
                     pricePerNight={property.price_per_night}
                     currency={property.currency}
