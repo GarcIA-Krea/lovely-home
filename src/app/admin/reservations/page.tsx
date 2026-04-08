@@ -19,6 +19,7 @@ interface Reservation {
 interface Property {
     id: string;
     name: any;
+    price_per_night: number;
 }
 
 export default function ReservationsPage() {
@@ -53,7 +54,7 @@ export default function ReservationsPage() {
         // Fetch Properties for the dropdown
         const { data: propData } = await supabase
             .from('properties')
-            .select('id, name')
+            .select('id, name, price_per_night')
             .order('name');
             
         if (propData) setProperties(propData);
@@ -143,6 +144,66 @@ export default function ReservationsPage() {
         }
     };
 
+    useEffect(() => {
+        if (formData.check_in && formData.check_out && formData.property_id) {
+            const start = new Date(formData.check_in);
+            const end = new Date(formData.check_out);
+            const diffTime = end.getTime() - start.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0) {
+                const prop = properties.find(p => p.id === formData.property_id);
+                if (prop) {
+                    setFormData(prev => ({ ...prev, total_price: diffDays * prop.price_per_night }));
+                }
+            } else {
+                setFormData(prev => ({ ...prev, total_price: 0 }));
+            }
+        }
+    }, [formData.check_in, formData.check_out, formData.property_id, properties]);
+
+    const handleWompiPayment = async () => {
+        const start = new Date(formData.check_in);
+        const end = new Date(formData.check_out);
+        const nights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+        const prop = properties.find(p => p.id === formData.property_id);
+        
+        if (!prop || nights <= 0 || !formData.guest_name || !formData.guest_email) {
+            alert('Por favor completa todos los campos (nombre, correo, fechas válidas).');
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    propertyId: formData.property_id,
+                    propertyName: getPropName(prop.name),
+                    guestName: formData.guest_name,
+                    guestEmail: formData.guest_email,
+                    pricePerNight: prop.price_per_night,
+                    checkIn: formData.check_in,
+                    checkOut: formData.check_out,
+                    nights,
+                    currency: 'COP',
+                }),
+            });
+
+            const data = await response.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                throw new Error(data.error || 'Failed to create checkout session');
+            }
+        } catch (error: any) {
+            console.error('Booking Error:', error);
+            alert('Error al iniciar el proceso de pago con Wompi.');
+            setLoading(false);
+        }
+    };
+
     const getPropName = (nameObj: any) => {
         if (!nameObj) return 'Desconocida';
         let parsed = typeof nameObj === 'string' ? JSON.parse(nameObj) : nameObj;
@@ -214,9 +275,13 @@ export default function ReservationsPage() {
                         </div>
                     </div>
                     
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
-                        <button type="submit" style={{ background: '#000', color: '#fff', padding: '0.75rem 2rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
-                            Confirmar Reserva
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem', gap: '1rem' }}>
+                        <button type="button" onClick={handleWompiPayment} style={{ background: '#4c2882', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span className="material-symbols-outlined">payments</span>
+                            Pagar con Wompi
+                        </button>
+                        <button type="submit" style={{ background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
+                            Confirmar Manualmente
                         </button>
                     </div>
                 </form>
