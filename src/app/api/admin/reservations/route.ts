@@ -27,7 +27,7 @@ export async function PUT(req: Request) {
             if (error) throw error;
         } else if (action === 'clear_expired') {
             const { expiredIds } = body;
-            const { error } = await supabase.from('reservations').update({ status: 'cancelled' }).in('id', expiredIds);
+            const { error } = await supabase.from('reservations').delete().in('id', expiredIds);
             if (error) throw error;
         } else {
             throw new Error('Invalid action');
