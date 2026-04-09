@@ -18,6 +18,7 @@ interface Reservation {
 interface Property {
     id: string;
     name: string;
+    main_image_url: string;
 }
 
 const MONTHS = [
@@ -47,10 +48,10 @@ export default function BookingGrid() {
         async function fetchData() {
             setLoading(true);
             try {
-                // Fetch Properties
+                // Fetch Properties + Images
                 const { data: props } = await supabase
                     .from('properties')
-                    .select('id, name')
+                    .select('id, name, main_image_url')
                     .order('name');
                 
                 // Fetch Reservations for the month (and slightly before/after for span)
@@ -76,6 +77,21 @@ export default function BookingGrid() {
 
     const changeMonth = (offset: number) => {
         setCurrentDate(new Date(year, month + offset, 1));
+    };
+
+    const formatName = (name: any) => {
+        if (!name) return 'Propiedad';
+        if (typeof name === 'object') return name.es || name.en || 'Propiedad';
+        try {
+            // Try to parse if it's a string containing JSON
+            if (typeof name === 'string' && (name.startsWith('{') || name.startsWith('['))) {
+                const parsed = JSON.parse(name);
+                return parsed.es || parsed.en || name;
+            }
+        } catch (e) {
+            // Not JSON or parse error, return as is
+        }
+        return name;
     };
 
     const getReservationStyle = (res: Reservation, daysInMonth: number) => {
@@ -173,7 +189,10 @@ export default function BookingGrid() {
                     {properties.map(prop => (
                         <div key={prop.id} className={styles.row}>
                             <div className={styles.propertyCol}>
-                                {typeof prop.name === 'string' ? prop.name : (JSON.parse(prop.name as any)?.es || 'Propiedad')}
+                                <div className={styles.propAvatar}>
+                                    <img src={prop.main_image_url} alt="" className={styles.propThumb} />
+                                </div>
+                                <span className={styles.propName}>{formatName(prop.name)}</span>
                             </div>
                             <div className={styles.gridWrapper} style={{ flex: 1, position: 'relative', display: 'flex' }}>
                                 {days.map(d => (
