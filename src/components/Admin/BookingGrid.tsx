@@ -97,8 +97,8 @@ export default function BookingGrid() {
         const width = (overlapEnd - overlapStart + 1) * cellWidth;
 
         return {
-            left: `${left}%`,
-            width: `${width}%`
+            left: `calc(${left}% + 4px)`,
+            width: `calc(${width}% - 8px)`
         };
     };
 
