@@ -55,7 +55,7 @@ export default function LocationSection() {
                 <div className={styles.mapContainer}>
                     <div className={styles.mapWrapper}>
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15865.716496225!2d-75.5807!3d6.2103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442830841b8979%3A0x6b18a66698642a8b!2sEl%20Poblado%2C%20Medell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d993.1167!2d-75.5696!3d6.2087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4428545dc7c6e7%3A0x2a7d2e0f9c8b1234!2sTv.%202%20%2330-47%2C%20El%20Poblado%2C%20Medell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1712620000000!5m2!1ses!2sco" 
                             width="100%" 
                             height="100%" 
                             style={{ border: 0 }} 
@@ -66,7 +66,7 @@ export default function LocationSection() {
                         ></iframe>
                         <div className={styles.mapOverlay}>
                             <a 
-                                href="https://www.google.com/maps/search/?api=1&query=6.2103,-75.5807" 
+                                href="https://www.google.com/maps/search/?api=1&query=Tv.+2+%2330-47%2C+El+Poblado%2C+Medell%C3%ADn%2C+Antioquia" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className={styles.mapLink}
