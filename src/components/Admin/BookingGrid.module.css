@@ -1,0 +1,214 @@
+.container {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fcfcfc;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.monthDisplay {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    min-width: 150px;
+    text-align: center;
+}
+
+.navBtn {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #333;
+}
+
+.navBtn:hover {
+    background: #f5f5f5;
+    border-color: #bbb;
+}
+
+.legend {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Grid Styles */
+.gridWrapper {
+    overflow-x: auto;
+    width: 100%;
+    position: relative;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    min-width: 1200px; /* Force scroll on smaller screens */
+}
+
+/* Row (Property) */
+.row {
+    display: flex;
+    border-bottom: 1px solid #f0f0f0;
+    height: 60px;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.propertyCol {
+    width: 200px;
+    min-width: 200px;
+    background: #fff;
+    border-right: 1px solid #f0f0f0;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+    box-shadow: 4px 0 8px rgba(0,0,0,0.02);
+}
+
+.cell {
+    flex: 1;
+    min-width: 40px;
+    border-right: 1px solid #f5f5f5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dayHeader {
+    text-align: center;
+    padding: 0.75rem 0;
+    background: #f8f9fa;
+    color: #666;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-right: 1px solid #eee;
+}
+
+.dayNumber {
+    font-size: 1rem;
+    color: #1a1a1a;
+    display: block;
+    margin-top: 0.2rem;
+}
+
+/* Reservation Block */
+.reservation {
+    position: absolute;
+    height: 40px;
+    border-radius: 8px;
+    z-index: 5;
+    padding: 0 0.75rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+}
+
+.reservation:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 20;
+}
+
+.reservation.direct {
+    background: linear-gradient(135deg, #c6e26a, #a5c34e);
+    color: #1d2012;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.reservation.airbnb {
+    background: linear-gradient(135deg, #FF5A5F, #D70466);
+}
+
+.reservation.booking {
+    background: linear-gradient(135deg, #003580, #004CB8);
+}
+
+.reservation.blocked {
+    background: linear-gradient(135deg, #444, #222);
+}
+
+.todayHighlight {
+    background: rgba(198, 226, 106, 0.05);
+}
+
+.weekend {
+    background: #fafafa;
+}
+
+.loading {
+    padding: 4rem;
+    text-align: center;
+    color: #888;
+}
+
+@media (max-width: 768px) {
+    .propertyCol {
+        width: 140px;
+        min-width: 140px;
+        padding: 0 1rem;
+        font-size: 0.8rem;
+    }
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
