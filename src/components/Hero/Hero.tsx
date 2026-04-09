@@ -1,11 +1,15 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './Hero.module.css';
 import { useTranslation } from '@/context/LanguageContext';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import AvailabilityModal from '../AvailabilityModal/AvailabilityModal';
 
 const Hero = () => {
   const { t } = useTranslation();
+  const [showAvailability, setShowAvailability] = useState(false);
 
   return (
     <div className={styles.hero}>
@@ -61,9 +65,9 @@ const Hero = () => {
           <p className={styles.subtitle}>{t.hero.subtitle}</p>
 
           <div className={styles.ctas}>
-            <button className={styles.secondaryBtn}>
-              <span className="material-symbols-outlined">play_circle</span>
-              <span>{t.hero.video}</span>
+            <button className={styles.secondaryBtn} onClick={() => setShowAvailability(true)}>
+              <span className="material-symbols-outlined">calendar_month</span>
+              <span>{t.availability.buttonLabel}</span>
             </button>
           </div>
 
@@ -119,6 +123,10 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {showAvailability && (
+        <AvailabilityModal onClose={() => setShowAvailability(false)} />
+      )}
     </div>
   );
 };

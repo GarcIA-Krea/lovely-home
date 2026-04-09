@@ -63,6 +63,25 @@ export const translations = {
             label: "Testimonios",
             title: "Lo que dicen nuestros huéspedes",
             cta: "Ver más reseñas"
+        },
+        availability: {
+            buttonLabel: "Ver Disponibilidad",
+            title: "Disponibilidad de Propiedades",
+            guests: "¿Cuántas personas?",
+            checkin: "Llegada",
+            checkout: "Salida",
+            search: "Ver Disponibilidad",
+            available: "Disponible",
+            unavailable: "Ocupada en esas fechas",
+            bookNow: "Reservar ahora",
+            nights: "noches",
+            night: "noche",
+            capacity: "Hasta",
+            capacityUnit: "huéspedes",
+            noResults: "No hay propiedades disponibles. Intenta con otras fechas o menos huéspedes.",
+            loading: "Buscando disponibilidad...",
+            perNight: "/ noche",
+            selectDates: "Selecciona las fechas para ver la disponibilidad"
         }
     },
     en: {
@@ -127,6 +146,25 @@ export const translations = {
             label: "Testimonials",
             title: "What our guests say",
             cta: "View more reviews"
+        },
+        availability: {
+            buttonLabel: "Check Availability",
+            title: "Property Availability",
+            guests: "How many guests?",
+            checkin: "Check-in",
+            checkout: "Check-out",
+            search: "Check Availability",
+            available: "Available",
+            unavailable: "Occupied on those dates",
+            bookNow: "Book now",
+            nights: "nights",
+            night: "night",
+            capacity: "Up to",
+            capacityUnit: "guests",
+            noResults: "No properties available. Try different dates or fewer guests.",
+            loading: "Searching availability...",
+            perNight: "/ night",
+            selectDates: "Select dates to check availability"
         }
     },
     pt: {
@@ -191,6 +229,25 @@ export const translations = {
             label: "Depoimentos",
             title: "O que dizem os nossos hóspedes",
             cta: "Ver mais avaliações"
+        },
+        availability: {
+            buttonLabel: "Ver Disponibilidade",
+            title: "Disponibilidade de Imóveis",
+            guests: "Quantas pessoas?",
+            checkin: "Chegada",
+            checkout: "Saída",
+            search: "Ver Disponibilidade",
+            available: "Disponível",
+            unavailable: "Ocupado nessas datas",
+            bookNow: "Reservar agora",
+            nights: "noites",
+            night: "noite",
+            capacity: "Até",
+            capacityUnit: "hóspedes",
+            noResults: "Nenhuma propriedade disponível. Tente outras datas ou menos hóspedes.",
+            loading: "Buscando disponibilidade...",
+            perNight: "/ noite",
+            selectDates: "Selecione as datas para ver a disponibilidade"
         }
     },
     fr: {
@@ -255,6 +312,25 @@ export const translations = {
             label: "Témoignages",
             title: "Ce que disent nos clients",
             cta: "Voir plus d'avis"
+        },
+        availability: {
+            buttonLabel: "Voir la Disponibilité",
+            title: "Disponibilité des Propriétés",
+            guests: "Combien de personnes?",
+            checkin: "Arrivée",
+            checkout: "Départ",
+            search: "Voir la Disponibilité",
+            available: "Disponible",
+            unavailable: "Occupé ces dates",
+            bookNow: "Réserver maintenant",
+            nights: "nuits",
+            night: "nuit",
+            capacity: "Jusqu'à",
+            capacityUnit: "invités",
+            noResults: "Aucune propriété disponible. Essayez d'autres dates ou moins d'invités.",
+            loading: "Recherche de disponibilité...",
+            perNight: "/ nuit",
+            selectDates: "Sélectionnez les dates pour voir la disponibilité"
         }
     },
     de: {
@@ -319,6 +395,25 @@ export const translations = {
             label: "Testimonials",
             title: "Was unsere Gäste sagen",
             cta: "Mehr Bewertungen ansehen"
+        },
+        availability: {
+            buttonLabel: "Verfügbarkeit prüfen",
+            title: "Verfügbarkeit der Unterkünfte",
+            guests: "Wie viele Personen?",
+            checkin: "Anreise",
+            checkout: "Abreise",
+            search: "Verfügbarkeit prüfen",
+            available: "Verfügbar",
+            unavailable: "An diesen Tagen belegt",
+            bookNow: "Jetzt buchen",
+            nights: "Nächte",
+            night: "Nacht",
+            capacity: "Bis zu",
+            capacityUnit: "Gäste",
+            noResults: "Keine Unterkünfte verfügbar. Versuchen Sie andere Daten oder weniger Gäste.",
+            loading: "Verfügbarkeit wird gesucht...",
+            perNight: "/ Nacht",
+            selectDates: "Wählen Sie Daten, um die Verfügbarkeit zu sehen"
         }
     },
     it: {
@@ -383,6 +478,25 @@ export const translations = {
             label: "Testimonianze",
             title: "Cosa dicono i nostri ospiti",
             cta: "Vedi altre recensioni"
+        },
+        availability: {
+            buttonLabel: "Verifica Disponibilità",
+            title: "Disponibilità Proprietà",
+            guests: "Quante persone?",
+            checkin: "Arrivo",
+            checkout: "Partenza",
+            search: "Verifica Disponibilità",
+            available: "Disponibile",
+            unavailable: "Occupata in quelle date",
+            bookNow: "Prenota ora",
+            nights: "notti",
+            night: "notte",
+            capacity: "Fino a",
+            capacityUnit: "ospiti",
+            noResults: "Nessuna proprietà disponibile. Prova altre date o meno ospiti.",
+            loading: "Ricerca disponibilità...",
+            perNight: "/ notte",
+            selectDates: "Seleziona le date per vedere la disponibilità"
         }
     }
 };

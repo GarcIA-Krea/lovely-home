@@ -10,12 +10,14 @@ interface BookingCalendarProps {
     pricePerNight: number;
     currency: string;
     onClose: () => void;
+    initialCheckIn?: string;
+    initialCheckOut?: string;
 }
 
-export default function BookingCalendar({ propertyId, propertyName, pricePerNight, currency, onClose }: BookingCalendarProps) {
+export default function BookingCalendar({ propertyId, propertyName, pricePerNight, currency, onClose, initialCheckIn = '', initialCheckOut = '' }: BookingCalendarProps) {
     const { t } = useTranslation();
-    const [checkIn, setCheckIn] = useState<string>('');
-    const [checkOut, setCheckOut] = useState<string>('');
+    const [checkIn, setCheckIn] = useState<string>(initialCheckIn);
+    const [checkOut, setCheckOut] = useState<string>(initialCheckOut);
     const [guestName, setGuestName] = useState<string>('');
     const [guestEmail, setGuestEmail] = useState<string>('');
     const [totalPrice, setTotalPrice] = useState<number>(0);
