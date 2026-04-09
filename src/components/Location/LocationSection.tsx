@@ -66,7 +66,7 @@ export default function LocationSection() {
                         ></iframe>
                         <div className={styles.mapOverlay}>
                             <a 
-                                href="https://www.google.com/maps/search/?api=1&query=6.200527869755367,-75.56334301137976" 
+                                href="https://www.google.com/maps?ftid=0x8e4683b6ef539049:0xd9824fc25acc014e" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className={styles.mapLink}
