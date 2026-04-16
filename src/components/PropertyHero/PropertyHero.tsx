@@ -119,26 +119,14 @@ const PropertyHero: React.FC<PropertyHeroProps> = ({ property, index }) => {
                                 <span className="material-symbols-outlined">bolt</span>
                             </button>
                             {property.airbnb_url && (
-                                <a
-                                    href={property.airbnb_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.airbnbBtn}
-                                    title="Airbnb"
-                                >
-                                    <SiAirbnb size={20} />
-                                </a>
+                                <div className={`${styles.trustBadge} ${styles.airbnb}`} title="Airbnb Superhost">
+                                    <SiAirbnb size={18} /> <span>Superhost</span>
+                                </div>
                             )}
                             {property.booking_url && (
-                                <a
-                                    href={property.booking_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.bookingBtnExternal}
-                                    title="Booking.com"
-                                >
-                                    <SiBookingdotcom size={20} />
-                                </a>
+                                <div className={`${styles.trustBadge} ${styles.booking}`} title="Booking.com Exceptional">
+                                    <SiBookingdotcom size={18} /> <span>9.8</span>
+                                </div>
                             )}
                             <button 
                                 className={styles.secondaryBtn}
