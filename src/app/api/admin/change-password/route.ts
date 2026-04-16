@@ -4,9 +4,19 @@ import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
     try {
-        const { password } = await req.json();
+        const cookieStore = await cookies();
+        const isAdmin = cookieStore.get('admin_token')?.value === 'true';
 
-        // Use service role to bypass RLS and read the admin_settings table
+        if (!isAdmin) {
+            return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+        }
+
+        const { currentPassword, newPassword } = await req.json();
+
+        if (!currentPassword || !newPassword) {
+            return NextResponse.json({ error: 'Faltan datos requeridos' }, { status: 400 });
+        }
+
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
         const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
@@ -28,29 +38,27 @@ export async function POST(req: Request) {
 
         if (setting && setting.value) {
             correctPassword = setting.value;
-        } else if (error && error.code !== 'PGRST116') {
-            console.error('Error fetching admin password:', error.message);
         }
 
-        if (!correctPassword) {
-            return NextResponse.json({ error: 'System configuration error' }, { status: 500 });
+        if (currentPassword !== correctPassword) {
+            return NextResponse.json({ error: 'La contraseña actual es incorrecta' }, { status: 401 });
         }
 
-        if (password === correctPassword) {
-            const cookieStore = await cookies();
-            cookieStore.set({
-                name: 'admin_token',
-                value: 'true',
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
-                path: '/',
-                maxAge: 60 * 60 * 24 * 7 // 1 week
+        // Update the password in Supabase
+        const { error: updateError } = await supabase
+            .from('admin_settings')
+            .upsert({ 
+                key_name: 'admin_password', 
+                value: newPassword,
+                updated_at: new Date().toISOString()
             });
-            return NextResponse.json({ success: true });
+
+        if (updateError) {
+            console.error('Error updating password:', updateError.message);
+            return NextResponse.json({ error: 'Error al actualizar la contraseña' }, { status: 500 });
         }
 
-        return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
+        return NextResponse.json({ success: true });
     } catch (e: any) {
         return NextResponse.json({ error: 'Error del servidor: ' + e.message }, { status: 500 });
     }

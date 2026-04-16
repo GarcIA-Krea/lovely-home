@@ -176,16 +176,16 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property, onClose, on
                                     <span className="material-symbols-outlined">bolt</span>
                                 </button>
                                 
-                                <div className={styles.externalLinks}>
+                                <div className={styles.trustBadgesContainer}>
                                     {property.airbnb_url && (
-                                        <a href={property.airbnb_url} target="_blank" rel="noopener noreferrer" className={styles.airbnbLink} title="Airbnb">
-                                            <SiAirbnb size={20} />
-                                        </a>
+                                        <div className={`${styles.trustBadge} ${styles.airbnb}`} title="Airbnb Superhost">
+                                            <SiAirbnb size={16} /> <span>Superhost 5.0</span>
+                                        </div>
                                     )}
                                     {property.booking_url && (
-                                        <a href={property.booking_url} target="_blank" rel="noopener noreferrer" className={styles.bookingLink} title="Booking.com">
-                                            <SiBookingdotcom size={20} />
-                                        </a>
+                                        <div className={`${styles.trustBadge} ${styles.booking}`} title="Booking.com Exceptional">
+                                            <SiBookingdotcom size={16} /> <span>Excepcional 9.8</span>
+                                        </div>
                                     )}
                                 </div>
                             </div>

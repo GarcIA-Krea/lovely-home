@@ -16,7 +16,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { name: 'Dashboard', path: '/admin/dashboard', icon: 'dashboard' },
         { name: 'Reservas', path: '/admin/reservations', icon: 'calendar_month' },
         { name: 'Propiedades', path: '/admin/properties', icon: 'apartment' },
-        { name: 'Testimonios', path: '/admin/reviews', icon: 'star' }
+        { name: 'Testimonios', path: '/admin/reviews', icon: 'star' },
+        { name: 'Configuración', path: '/admin/settings', icon: 'settings' }
     ];
 
     const handleLogout = async () => {

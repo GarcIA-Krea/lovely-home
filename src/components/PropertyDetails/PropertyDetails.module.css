@@ -303,40 +303,39 @@
     box-shadow: 0 10px 30px rgba(197, 225, 107, 0.3);
 }
 
-.externalLinks {
+.trustBadgesContainer {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-top: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
-.airbnbLink, .bookingLink {
+.trustBadge {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
     font-weight: 600;
+    cursor: default;
+    user-select: none;
 }
 
-.airbnbLink:hover {
-    background: rgba(255, 90, 95, 0.1);
-    border-color: rgba(255, 90, 95, 0.4);
-    transform: translateY(-2px);
+.trustBadge.airbnb {
     color: #ff5a5f;
+    border-color: rgba(255, 90, 95, 0.2);
+    background: rgba(255, 90, 95, 0.05);
 }
 
-.bookingLink:hover {
-    background: rgba(0, 53, 128, 0.1);
-    border-color: rgba(0, 53, 128, 0.4);
-    transform: translateY(-2px);
+.trustBadge.booking {
     color: #4a90e2;
+    border-color: rgba(0, 53, 128, 0.2);
+    background: rgba(0, 53, 128, 0.05);
 }
 
 /* Animations */
