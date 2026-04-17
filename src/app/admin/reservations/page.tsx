@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import styles from './style.module.css';
 
 interface Reservation {
     id: string;
@@ -14,6 +15,7 @@ interface Reservation {
     status: string;
     properties: any;
     created_at: string;
+    platform?: string;
 }
 
 interface Property {
@@ -39,19 +41,17 @@ export default function ReservationsPage() {
 
     const fetchData = async () => {
         setLoading(true);
-        // Fetch Reservations
         const { data: resData } = await supabase
             .from('reservations')
             .select(`
                 id, guest_name, guest_email, check_in, check_out, 
-                total_price, currency, status, created_at,
+                total_price, currency, status, created_at, platform,
                 properties (name)
             `)
             .order('created_at', { ascending: false });
 
         if (resData) setReservations(resData as any);
 
-        // Fetch Properties for the dropdown
         const { data: propData } = await supabase
             .from('properties')
             .select('id, name, price_per_night')
@@ -130,7 +130,8 @@ export default function ReservationsPage() {
             body: JSON.stringify({
                 ...formData,
                 currency: 'COP',
-                status: 'confirmed'
+                status: 'confirmed',
+                platform: 'direct'
             })
         });
         const result = await res.json();
@@ -210,30 +211,30 @@ export default function ReservationsPage() {
         return parsed?.es || 'Desconocida';
     };
 
+    const getStatusClass = (res: Reservation) => {
+        if (res.status === 'confirmed') return styles.status_confirmed;
+        if (res.status === 'cancelled') return styles.status_cancelled;
+        if (isExpired(res)) return styles.status_expired;
+        return styles.status_pending;
+    };
+
+    const renderStatus = (res: Reservation) => {
+        if (res.status === 'pending') {
+            return isExpired(res) ? 'EXPIRADA' : `PENDIENTE (${getPendingText(res)})`;
+        }
+        return res.status.toUpperCase();
+    };
+
     return (
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#1a1a1a', margin: 0 }}>Reservas</h1>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button 
-                        onClick={clearExpired}
-                        style={{
-                            background: '#fdecea', color: '#c62828', padding: '0.75rem 1.5rem', borderRadius: '8px', 
-                            border: '1px solid #f4cdd2', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                            fontFamily: 'inherit', fontSize: '0.9rem'
-                        }}
-                    >
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>Reservas</h1>
+                <div className={styles.actionButtons}>
+                    <button onClick={clearExpired} className={styles.cleanBtn}>
                         <span className="material-symbols-outlined">delete_sweep</span>
                         Limpiar Vencidas
                     </button>
-                    <button 
-                        onClick={() => setShowForm(!showForm)}
-                        style={{
-                            background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', 
-                            border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                            fontFamily: 'inherit', fontSize: '0.9rem'
-                        }}
-                    >
+                    <button onClick={() => setShowForm(!showForm)} className={styles.createBtn}>
                         <span className="material-symbols-outlined">{showForm ? 'close' : 'add'}</span>
                         {showForm ? 'Cancelar' : 'Nueva Reserva'}
                     </button>
@@ -241,64 +242,65 @@ export default function ReservationsPage() {
             </div>
 
             {showForm && (
-                <form onSubmit={handleCreate} style={{ background: '#fff', padding: '2rem', borderRadius: '12px', border: '1px solid #eaeaea', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', fontFamily: 'inherit' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0, color: '#1a1a1a' }}>Anadir Reserva Manual</h2>
+                <form onSubmit={handleCreate} className={styles.formContainer}>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0, color: '#1a1a1a' }}>Añadir Reserva Manual</h2>
                     <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1rem' }}>Ingresa los datos para bloquear las fechas de una reserva directa.</p>
                     
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Nombre del Huésped</label>
-                            <input required value={formData.guest_name} onChange={e => setFormData({...formData, guest_name: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
+                    <div className={styles.formGrid}>
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.label}>Nombre del Huésped</label>
+                            <input required value={formData.guest_name} onChange={e => setFormData({...formData, guest_name: e.target.value})} className={styles.input} />
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Correo Electrónico</label>
-                            <input type="email" required value={formData.guest_email} onChange={e => setFormData({...formData, guest_email: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.label}>Correo Electrónico</label>
+                            <input type="email" required value={formData.guest_email} onChange={e => setFormData({...formData, guest_email: e.target.value})} className={styles.input} />
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Propiedad</label>
-                            <select required value={formData.property_id} onChange={e => setFormData({...formData, property_id: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', background: '#fff', fontFamily: 'inherit', fontSize: '0.9rem' }}>
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.label}>Propiedad</label>
+                            <select required value={formData.property_id} onChange={e => setFormData({...formData, property_id: e.target.value})} className={styles.select}>
                                 <option value="" disabled>Seleccionar...</option>
                                 {properties.map(p => (
                                     <option key={p.id} value={p.id}>{getPropName(p.name)}</option>
                                 ))}
                             </select>
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Check-in</label>
-                            <input type="date" required value={formData.check_in} onChange={e => setFormData({...formData, check_in: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.label}>Check-in</label>
+                            <input type="date" required value={formData.check_in} onChange={e => setFormData({...formData, check_in: e.target.value})} className={styles.input} />
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Check-out</label>
-                            <input type="date" required value={formData.check_out} onChange={e => setFormData({...formData, check_out: e.target.value})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.label}>Check-out</label>
+                            <input type="date" required value={formData.check_out} onChange={e => setFormData({...formData, check_out: e.target.value})} className={styles.input} />
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Precio Total (COP)</label>
-                            <input type="number" required value={formData.total_price || ''} onChange={e => setFormData({...formData, total_price: Number(e.target.value)})} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit', fontSize: '0.9rem' }} />
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.label}>Precio Total (COP)</label>
+                            <input type="number" required value={formData.total_price || ''} onChange={e => setFormData({...formData, total_price: Number(e.target.value)})} className={styles.input} />
                         </div>
                     </div>
                     
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem', gap: '1rem' }}>
-                        <button type="button" onClick={handleWompiPayment} style={{ background: '#4c2882', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'inherit', fontSize: '0.9rem' }}>
+                    <div className={styles.formActions}>
+                        <button type="button" onClick={handleWompiPayment} className={styles.wompiBtn}>
                             <span className="material-symbols-outlined">payments</span>
                             Pagar con Wompi
                         </button>
-                        <button type="submit" style={{ background: '#000', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '8px', border: 'none', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.9rem' }}>
+                        <button type="submit" className={styles.createBtn}>
                             Confirmar Manualmente
                         </button>
                     </div>
                 </form>
             )}
 
-            <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #eaeaea', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                    <thead style={{ background: '#f8f8f8', borderBottom: '1px solid #eaeaea' }}>
-                        <tr>
-                            <th style={{ padding: '1rem', fontWeight: 600, fontSize: '0.85rem', color: '#666' }}>Huésped</th>
-                            <th style={{ padding: '1rem', fontWeight: 600, fontSize: '0.85rem', color: '#666' }}>Propiedad</th>
-                            <th style={{ padding: '1rem', fontWeight: 600, fontSize: '0.85rem', color: '#666' }}>Llegada / Salida</th>
-                            <th style={{ padding: '1rem', fontWeight: 600, fontSize: '0.85rem', color: '#666' }}>Total</th>
-                            <th style={{ padding: '1rem', fontWeight: 600, fontSize: '0.85rem', color: '#666' }}>Estado</th>
-                            <th style={{ padding: '1rem', fontWeight: 600, fontSize: '0.85rem', color: '#666' }}>Acciones</th>
+            {/* Desktop View */}
+            <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                    <thead className={styles.thead}>
+                        <tr className={styles.tr}>
+                            <th className={styles.th}>Huésped</th>
+                            <th className={styles.th}>Propiedad</th>
+                            <th className={styles.th}>Llegada / Salida</th>
+                            <th className={styles.th}>Total</th>
+                            <th className={styles.th}>Estado</th>
+                            <th className={styles.th}>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -312,43 +314,28 @@ export default function ReservationsPage() {
                             </tr>
                         ) : (
                             reservations.map((res) => (
-                                <tr key={res.id} style={{ borderBottom: '1px solid #eaeaea' }}>
-                                    <td style={{ padding: '1rem', fontSize: '0.9rem' }}>
+                                <tr key={res.id} className={styles.tr}>
+                                    <td className={styles.td}>
                                         <div style={{ fontWeight: 600, color: '#1a1a1a' }}>{res.guest_name}</div>
-                                        <div style={{ color: '#666', fontSize: '0.8rem' }}>{res.guest_email}</div>
+                                        <div className={styles.email}>{res.guest_email}</div>
                                     </td>
-                                    <td style={{ padding: '1rem', fontSize: '0.9rem', color: '#1a1a1a' }}>
-                                        {getPropName(res.properties?.name)}
+                                    <td className={styles.td}>{getPropName(res.properties?.name)}</td>
+                                    <td className={styles.td}>
+                                        {res.check_in} <br/> <span className={styles.email}>a</span> {res.check_out}
                                     </td>
-                                    <td style={{ padding: '1rem', fontSize: '0.9rem', color: '#1a1a1a' }}>
-                                        {res.check_in} <br/> <span style={{ color: '#666', fontSize: '0.8rem' }}>a</span> {res.check_out}
-                                    </td>
-                                    <td style={{ padding: '1rem', fontSize: '0.9rem', color: '#1a1a1a', fontWeight: 500 }}>
+                                    <td className={styles.td} style={{ fontWeight: 500 }}>
                                         ${res.total_price?.toLocaleString()} {res.currency}
                                     </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <span style={{
-                                            padding: '0.25rem 0.75rem',
-                                            borderRadius: '99px',
-                                            fontSize: '0.75rem',
-                                            fontWeight: 600,
-                                            background: res.status === 'confirmed' ? '#e6f4ea' : res.status === 'cancelled' ? '#fdecea' : isExpired(res) ? '#ffebee' : '#fff3e0',
-                                            color: res.status === 'confirmed' ? '#2e7d32' : res.status === 'cancelled' ? '#c62828' : isExpired(res) ? '#d32f2f' : '#e65100',
-                                        }}>
-                                            {res.status === 'pending' ? (isExpired(res) ? 'EXPIRADA' : `PENDIENTE (${getPendingText(res)})`) : res.status.toUpperCase()}
+                                    <td className={styles.td}>
+                                        <span className={`${styles.statusPill} ${getStatusClass(res)}`}>
+                                            {renderStatus(res)}
                                         </span>
                                     </td>
-                                    <td style={{ padding: '1rem' }}>
+                                    <td className={styles.td}>
                                         <select 
                                             value={res.status}
                                             onChange={(e) => updateStatus(res.id, e.target.value)}
-                                            style={{
-                                                padding: '0.4rem',
-                                                borderRadius: '6px',
-                                                border: '1px solid #ddd',
-                                                fontSize: '0.85rem',
-                                                cursor: 'pointer'
-                                            }}
+                                            className={styles.statusSelect}
                                         >
                                             <option value="pending">Pendiente</option>
                                             <option value="confirmed">Confirmada</option>
@@ -360,6 +347,54 @@ export default function ReservationsPage() {
                         )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile View */}
+            <div className={styles.cardsContainer}>
+                {loading ? (
+                    <div style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>Cargando reservas...</div>
+                ) : reservations.length === 0 ? (
+                    <div style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>No hay reservas registradas.</div>
+                ) : (
+                    reservations.map((res) => (
+                        <div key={res.id} className={styles.card}>
+                            <div className={styles.cardHeader}>
+                                <div className={styles.cardPropName}>{getPropName(res.properties?.name)}</div>
+                                <span className={`${styles.statusPill} ${getStatusClass(res)}`}>
+                                    {renderStatus(res)}
+                                </span>
+                            </div>
+                            
+                            <div className={styles.cardGuestInfo}>
+                                <div style={{ fontWeight: 700 }}>{res.guest_name}</div>
+                                <div className={styles.email}>{res.guest_email}</div>
+                            </div>
+
+                            <div className={styles.cardDates}>
+                                <span className="material-symbols-outlined" style={{ fontSize: '1.1rem', color: '#666' }}>calendar_today</span>
+                                <span>{res.check_in}</span>
+                                <span style={{ color: '#ccc' }}>→</span>
+                                <span>{res.check_out}</span>
+                            </div>
+
+                            <div className={styles.cardFooter}>
+                                <div className={styles.priceDisplay}>
+                                    ${res.total_price?.toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 500, color: '#666' }}>{res.currency}</span>
+                                </div>
+                                <select 
+                                    value={res.status}
+                                    onChange={(e) => updateStatus(res.id, e.target.value)}
+                                    className={styles.statusSelect}
+                                    style={{ padding: '0.5rem 0.25rem' }}
+                                >
+                                    <option value="pending">Pendiente</option>
+                                    <option value="confirmed">Confirmada</option>
+                                    <option value="cancelled">Cancelada</option>
+                                </select>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );

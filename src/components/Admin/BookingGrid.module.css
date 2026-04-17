@@ -244,3 +244,129 @@
         padding: 0 1.25rem;
     }
 }
+
+/* Mobile View Styles */
+.mobileContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: #fff;
+}
+
+.mobilePropItem {
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.mobilePropItem.expanded {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-color: #e2e8f0;
+}
+
+.mobilePropHeader {
+    width: 100%;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: #0f172a;
+}
+
+.mobileThumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.mobileCalendarWrapper {
+    padding: 0 1.25rem 1.25rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.mobileCalendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.mobileDayLabel {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    padding-bottom: 0.5rem;
+}
+
+.mobileDayCell {
+    aspect-ratio: 1;
+    background: #f8fafc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.mobileDayNum {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.mobileIndicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 6px;
+}
+
+.mobileLegend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.mobileLegendItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1.5rem;
+    }
+    
+    .monthDisplay {
+        font-size: 1.1rem;
+        min-width: 140px;
+    }
+
+    .gridWrapper {
+        display: none; /* Hide timeline on mobile */
+    }
+}

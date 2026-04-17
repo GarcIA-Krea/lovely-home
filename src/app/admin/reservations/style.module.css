@@ -1,0 +1,314 @@
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-bottom: 3rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 1rem;
+}
+
+.cleanBtn {
+    background: #fdecea;
+    color: #c62828;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #f4cdd2;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.cleanBtn:hover {
+    background: #f9d7d3;
+}
+
+.createBtn {
+    background: #000;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.createBtn:hover {
+    background: #333;
+}
+
+/* Form Styles */
+.formContainer {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #eaeaea;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: slideDown 0.3s ease-out;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.input, .select {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+
+.input:focus, .select:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.wompiBtn {
+    background: #4c2882;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+/* Table Styles (Desktop) */
+.tableWrapper {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eaeaea;
+    overflow: hidden;
+}
+
+.tableContainer {
+    width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.thead {
+    background: #f8f8f8;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.th {
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.tr {
+    border-bottom: 1px solid #eaeaea;
+    transition: background 0.1s;
+}
+
+.tr:hover {
+    background: #fafafa;
+}
+
+.td {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.guestMain {
+    fontWeight: 600;
+    color: #1a1a1a;
+}
+
+.email {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.statusPill {
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+/* Status variants */
+.status_confirmed { background: #e6f4ea; color: #2e7d32; }
+.status_cancelled { background: #fdecea; color: #c62828; }
+.status_pending   { background: #fff3e0; color: #e65100; }
+.status_expired   { background: #ffebee; color: #d32f2f; }
+
+.statusSelect {
+    padding: 0.4rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Card Styles (Mobile) */
+.cardsContainer {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eaeaea;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardPropName {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #000;
+}
+
+.cardGuestInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cardDates {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #444;
+    padding: 0.5rem 0;
+    border-top: 1px solid #f5f5f5;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.priceDisplay {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .actionButtons {
+        width: 100%;
+    }
+    
+    .cleanBtn, .createBtn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .tableWrapper {
+        display: none;
+    }
+
+    .cardsContainer {
+        display: flex;
+    }
+
+    .formContainer {
+        padding: 1.25rem;
+    }
+
+    .formActions {
+        flex-direction: column;
+    }
+
+    .formActions button {
+        width: 100%;
+    }
+}
