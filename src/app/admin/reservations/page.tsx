@@ -1,4 +1,5 @@
 'use client';
+// Lovely Home Admin - Reservations Page (Refactored for Mobile-First)
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
