@@ -9,6 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 export async function PUT(req: Request) {
     try {
+        const body = await req.json();
         const { id, price_per_night, airbnb_url, booking_url, airbnb_ical_url, booking_ical_url } = body;
 
         if (!id) {
