@@ -396,15 +396,50 @@
 
 @media (max-width: 768px) {
     .header {
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .controls {
+        width: 100%;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .syncBtn {
+        margin-left: 0.5rem;
+        padding: 0 0.75rem;
+        height: 38px;
+        font-size: 0.8rem;
+    }
+
+    .syncBtn span {
+        font-size: 1.2rem;
+    }
+
+    /* Ocultar texto en pantallas muy pequeñas para que solo quede el ícono */
+    @media (max-width: 380px) {
+        .syncBtn {
+            width: 38px;
+            padding: 0;
+            justify-content: center;
+        }
+        .syncBtn span {
+            margin: 0;
+        }
+        .syncBtn {
+            font-size: 0; /* Hide text but keep icon */
+        }
     }
     
     .monthDisplay {
         font-size: 1.1rem;
-        min-width: 140px;
+        min-width: 130px;
     }
 
     .gridWrapper {
-        display: none; /* Hide timeline on mobile */
+        display: none; 
     }
 }
