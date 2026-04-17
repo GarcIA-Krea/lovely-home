@@ -58,29 +58,34 @@ export async function POST() {
             .select('id, airbnb_ical_url, booking_ical_url')
             .or('airbnb_ical_url.neq.null,booking_ical_url.neq.null');
 
-        if (propError) throw propError;
+        if (propError) {
+            console.error('Supabase property fetch error:', propError);
+            throw propError;
+        }
+
+        if (!properties || properties.length === 0) {
+            return NextResponse.json({ success: true, syncedCount: 0, message: 'No properties to sync' });
+        }
 
         let totalSynced = 0;
-        const results: any[] = [];
 
         // 2. Process each property
         for (const prop of properties) {
             const syncUrls = [
                 { url: prop.airbnb_ical_url, platform: 'airbnb' },
                 { url: prop.booking_ical_url, platform: 'booking' }
-            ].filter(s => s.url);
+            ].filter(s => s.url && s.url.startsWith('http'));
 
             for (const { url, platform } of syncUrls) {
                 try {
-                    const response = await fetch(url);
+                    const response = await fetch(url as string);
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const icsContent = await response.text();
                     const events = parseICal(icsContent);
 
+                    if (events.length === 0) continue;
+
                     for (const event of events) {
-                        // Skip if it says "Airbnb (Not available)" or similar if needed, 
-                        // but usually everything in the feed is a reservation or block.
-                        
                         // UPSERT into reservations
                         const { error: upsertError } = await supabase
                             .from('reservations')
@@ -94,10 +99,9 @@ export async function POST() {
                                 platform: platform,
                                 status: 'confirmed',
                                 currency: 'COP',
-                                total_price: 0 // We don't get prices from iCal
+                                total_price: 0 
                             }, {
-                                onConflict: 'external_id',
-                                ignoreDuplicates: false
+                                onConflict: 'external_id'
                             });
 
                         if (!upsertError) totalSynced++;
@@ -107,17 +111,21 @@ export async function POST() {
                 }
             }
 
-            // Update last_sync_at for the property
-            await supabase
-                .from('properties')
-                .update({ last_sync_at: new Date().toISOString() })
-                .eq('id', prop.id);
+            // Update last_sync_at for the property (if the column exists)
+            try {
+                await supabase
+                    .from('properties')
+                    .update({ last_sync_at: new Date().toISOString() })
+                    .eq('id', prop.id);
+            } catch (e) {
+                // Ignore if column doesn't exist yet
+            }
         }
 
         return NextResponse.json({ success: true, syncedCount: totalSynced });
 
     } catch (error: any) {
-        console.error('Sync Error:', error);
+        console.error('Sync Global Error:', error);
         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 }
