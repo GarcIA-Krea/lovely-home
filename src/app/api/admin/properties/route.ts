@@ -9,8 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 export async function PUT(req: Request) {
     try {
-        const body = await req.json();
-        const { id, price_per_night, airbnb_url, booking_url } = body;
+        const { id, price_per_night, airbnb_url, booking_url, airbnb_ical_url, booking_ical_url } = body;
 
         if (!id) {
             return NextResponse.json({ error: 'Property ID is required' }, { status: 400 });
@@ -18,7 +17,13 @@ export async function PUT(req: Request) {
 
         const { data, error } = await supabase
             .from('properties')
-            .update({ price_per_night, airbnb_url, booking_url })
+            .update({ 
+                price_per_night, 
+                airbnb_url, 
+                booking_url,
+                airbnb_ical_url,
+                booking_ical_url
+            })
             .eq('id', id)
             .select();
 

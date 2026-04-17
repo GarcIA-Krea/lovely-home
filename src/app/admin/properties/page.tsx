@@ -14,6 +14,8 @@ interface Property {
     price_per_night: number;
     airbnb_url: string;
     booking_url: string;
+    airbnb_ical_url: string;
+    booking_ical_url: string;
     property_images?: PropertyImage[];
 }
 
@@ -28,7 +30,7 @@ export default function PropertiesAdminPage() {
         const { data, error } = await supabase
             .from('properties')
             .select(`
-                id, name, price_per_night, airbnb_url, booking_url,
+                id, name, price_per_night, airbnb_url, booking_url, airbnb_ical_url, booking_ical_url,
                 property_images (id, image_url)
             `)
             .order('name');
@@ -60,7 +62,9 @@ export default function PropertiesAdminPage() {
                     id: property.id,
                     price_per_night: property.price_per_night,
                     airbnb_url: property.airbnb_url,
-                    booking_url: property.booking_url
+                    booking_url: property.booking_url,
+                    airbnb_ical_url: property.airbnb_ical_url,
+                    booking_ical_url: property.booking_ical_url
                 })
             });
             const result = await res.json();
@@ -156,7 +160,27 @@ export default function PropertiesAdminPage() {
                                     />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#333' }}>Enlace Airbnb</label>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#FF5A5F' }}>Link de Exportación Airbnb (iCal)</label>
+                                    <input 
+                                        type="url" 
+                                        placeholder="https://www.airbnb.com.co/calendar/ical/..."
+                                        value={prop.airbnb_ical_url || ''}
+                                        onChange={(e) => handleUpdate(prop.id, 'airbnb_ical_url', e.target.value)}
+                                        style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit' }}
+                                    />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#003580' }}>Link de Exportación Booking (iCal)</label>
+                                    <input 
+                                        type="url" 
+                                        placeholder="https://ical.booking.com/v1/export?..."
+                                        value={prop.booking_ical_url || ''}
+                                        onChange={(e) => handleUpdate(prop.id, 'booking_ical_url', e.target.value)}
+                                        style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd', fontFamily: 'inherit' }}
+                                    />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#666' }}>URL Pública Airbnb</label>
                                     <input 
                                         type="url" 
                                         placeholder="https://airbnb.com/h/ejemplo"
@@ -166,7 +190,7 @@ export default function PropertiesAdminPage() {
                                     />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#333' }}>Enlace Booking.com</label>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#666' }}>URL Pública Booking.com</label>
                                     <input 
                                         type="url" 
                                         placeholder="https://booking.com/hotel/..."

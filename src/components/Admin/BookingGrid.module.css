@@ -47,6 +47,44 @@
     color: #64748b;
 }
 
+.syncBtn {
+    background: #000;
+    color: #fff;
+    padding: 0 1rem;
+    height: 42px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    margin-left: 1rem;
+}
+
+.syncBtn:hover:not(:disabled) {
+    background: #333;
+    transform: scale(1.02);
+}
+
+.syncBtn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.rotating {
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
 .navBtn:hover {
     background: #f1f5f9;
     color: #0f172a;

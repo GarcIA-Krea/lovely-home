@@ -160,6 +160,26 @@ export default function BookingGrid() {
         }
     };
 
+    const [syncing, setSyncing] = useState(false);
+
+    const handleSync = async () => {
+        setSyncing(true);
+        try {
+            const res = await fetch('/api/admin/sync', { method: 'POST' });
+            const data = await res.json();
+            if (data.success) {
+                alert(`Sincronización exitosa: ${data.syncedCount} reservas actualizadas.`);
+                window.location.reload(); // Refresh to show new data
+            } else {
+                throw new Error(data.error || 'Error desconocido');
+            }
+        } catch (err: any) {
+            alert('Error al sincronizar: ' + err.message);
+        } finally {
+            setSyncing(false);
+        }
+    };
+
     if (loading) return <div className={styles.loading}>Cargando calendario maestro...</div>;
 
     return (
@@ -174,6 +194,18 @@ export default function BookingGrid() {
                     </div>
                     <button className={styles.navBtn} onClick={() => changeMonth(1)}>
                         <span className="material-symbols-outlined">chevron_right</span>
+                    </button>
+                    
+                    <button 
+                        className={styles.syncBtn} 
+                        onClick={handleSync} 
+                        disabled={syncing}
+                        title="Sincronizar con Airbnb/Booking"
+                    >
+                        <span className={`material-symbols-outlined ${syncing ? styles.rotating : ''}`}>
+                            sync
+                        </span>
+                        {syncing ? 'Sincronizando...' : 'Sincronizar'}
                     </button>
                 </div>
 
