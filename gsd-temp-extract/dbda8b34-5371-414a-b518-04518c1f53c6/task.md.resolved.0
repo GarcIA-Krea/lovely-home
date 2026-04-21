@@ -1,0 +1,17 @@
+# Task: GSD AI Training Academy Setup
+
+- [ ] **Phase 1: Conceptualization & Architecture** <!-- id: 1 -->
+    - [/] Define Academy "Campus" Metaphor and Structure <!-- id: 2 -->
+    - [ ] Define Agent Personas and Roles (The "Faculty") <!-- id: 3 -->
+    - [ ] Design Technical Architecture (Frontend/Backend/Agent Framework) <!-- id: 4 -->
+- [ ] **Phase 2: Foundation Setup** <!-- id: 5 -->
+    - [ ] Initialize Project Repository (`gsd_ai_academy`) <!-- id: 6 -->
+    - [ ] Set up Development Environment & Tooling <!-- id: 7 -->
+- [ ] **Phase 3: Building the "Faculty" (Agent Skills)** <!-- id: 8 -->
+    - [ ] Create `Architect` Skill <!-- id: 9 -->
+    - [ ] Create `Curriculum_Developer` Skill <!-- id: 10 -->
+    - [ ] Create `Instructor` Skill <!-- id: 11 -->
+- [ ] **Phase 4: Constructing the Campus (UI/UX)** <!-- id: 12 -->
+    - [ ] Implement Main Campus Map/Hub <!-- id: 13 -->
+    - [ ] Build "Admissions" (Onboarding) <!-- id: 14 -->
+    - [ ] Build "Lecture Halls" (Content Viewers) <!-- id: 15 -->

@@ -1,0 +1,64 @@
+# Deep Dive Slide Deck Script: "The Knowledge Factory"
+
+**Input for NotebookLM Slide Generation**
+**Theme**: "Far East Spiritual Hyper-Realism" (Jade, Obsidian, Kintsugi Gold)
+**Goal**: Explain the GSD AI Academy Workflow (Data -> Brain -> Factory -> Agent).
+
+---
+
+## Slide 1: The Factory Vision
+**Title**: GSD AI ACADEMY: The Knowledge Factory
+**Visual**: A massive obsidian monolithic gate (Torii style) standing in a digital void.
+**Key Points**:
+*   "Services as Software": Moving from Hour-Based to Outcome-Based.
+*   "The Factory Model": We don't hand-code agents. We manufacture them.
+*   "The Goal": Scale from 1 to 1,000 Orchestrators without linear headcount.
+
+## Slide 2: The Raw Material (Concept)
+**Title**: The Chaos of Information
+**Visual**: A storm of white papers (SOPs, Manuals, PDFs).
+**Key Points**:
+*   Data is currently unstructured (PDFs, Emails, Slack).
+*   Human staff cannot process it fast enough.
+*   We need a "Brain" to ingest and structured it.
+
+## Slide 3: The Engine (NotebookLM)
+**Title**: The NotebookLM Brain
+**Visual**: A glowing Jade Ring absorbing the papers.
+**Key Points**:
+*   **Ingestion**: We feed raw documents into Google's NotebookLM.
+*   **Understanding**: The AI "Brain" learns the specific domain (e.g., "ModMed Billing").
+*   **Output**: It distills "Training Data" instantly. No manual curriculum design needed.
+
+## Slide 4: The Build (Universal Template)
+**Title**: The Universal JSON Template
+**Visual**: A Golden Wireframe Mold.
+**Key Points**:
+*   We use a single `Universal_Template.json`.
+*   We inject the "NotebookLM Training Data" into this mold.
+*   **Result**: A consistent, error-free Agent Structure every time.
+
+## Slide 5: The Shield (Compliance)
+**Title**: Zero PII. Zero Liability.
+**Visual**: A holographic ID card: "PATRICIA JOHNSON - SYNTHETIC".
+**Key Points**:
+*   **The Mock Patient Generator**: We use Python to invent 100% synthetic patients.
+*   **The Airlock**: Real PHI never enters the Training Engine.
+*   **The Guarantee**: "HIPAA isn't a hurdle. It's our foundation."
+
+## Slide 6: The Evolution (Orchestrators)
+**Title**: From Agent to Orchestrator
+**Visual**: A human silhouette wearing a glowing Jade Headset.
+**Key Points**:
+*   **Staff Transformation**: We don't replace people. We upgrade them.
+*   **The Role**: The "Orchestrator" manages the AI swarm.
+*   **The Value**: Higher leverage, higher margins, higher satisfaction.
+
+## Slide 7: The Ask (IT Requirements)
+**Title**: The Keys to the Factory
+**Visual**: Three Floating Golden Keys over an Obsidian Vault Door.
+**Key Points**:
+*   **Key 1**: Python 3.12 (To run the Mock Patient Generator).
+*   **Key 2**: Whitelist `notebooklm.google.com` (To access the Knowledge Brain).
+*   **Key 3**: PowerShell `RemoteSigned` (To manage the environment).
+*   **Call to Action**: "Unlock the door, and the Factory starts running."

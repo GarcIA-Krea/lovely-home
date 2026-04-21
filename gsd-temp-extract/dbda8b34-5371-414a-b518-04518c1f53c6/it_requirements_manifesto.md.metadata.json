@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Created 'IT Requirements Manifesto'. This document expands the original checklist to include specific justifications for the 2/24 Deep Dive. It explicitly requests Python 3.12, VS Code Extensions, and Whitelisting for 'notebooklm.google.com' and 'pypi.org' to run the 'Mock Patient Generator' and 'Jade Protocol'. It is formatted as a formal request to the CISO/IT Lead.",
+  "updatedAt": "2026-02-17T15:57:50.839588700Z"
+}

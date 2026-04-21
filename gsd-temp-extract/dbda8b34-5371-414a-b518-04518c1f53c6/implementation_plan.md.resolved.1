@@ -1,0 +1,46 @@
+# [Goal Description]
+Develop a comprehensive **AI Training Academy for Healthcare BPO Staff**.
+**Objective**: Train staff to integrate AI tools into their daily workflows (e.g., medical coding, patient scheduling, triage) while adhering to strict healthcare compliance.
+**Core "Brain"**: NotebookLM will house all curated, authoritative knowledge (EHR manuals, Medical Guidelines, Compliance Rules).
+
+## User Review Required
+> [!IMPORTANT]
+> **Source Verification Strategy**: We need a strategy to ingest *verified* EHR documentation (Epic, Cerner, AthenaHealth) without violating IP.
+> **Role Definition**: Are the proposed Faculty roles (specifically the distinct 'Compliance Officer') correct for your BPO structure?
+
+## Proposed Architecture: The "Teaching Hospital" Model
+
+### 1. The Knowledge Core (NotebookLM)
+The "Brain" is divided into distinct Notebooks to prevent hallucination and ensure context.
+- **Notebook A: Operational Systems (The "EHR Bible")**
+  - Sources: Official Guides for Epic, Cerner, Meditech.
+  - Focus: Navigation, shortcuts, data entry standards.
+- **Notebook B: Regulatory & Compliance (The "Rulebook")**
+  - Sources: HIPAA guidelines, GDPR (if applicable), Internal BPO Compliance Docs.
+  - Focus: PII redaction, data handling limits for AI.
+- **Notebook C: AI Tooling (The "Toolkit")**
+  - Sources: Manuals for specific AI tools being deployed (e.g., Copilot, specific GenAI wrappers).
+  - Focus: Prompt engineering for medical contexts.
+
+### 2. The Faculty (Agent Personas)
+Agents act as specialized mentors, not just generic chatbots.
+- **The Workflow Trainer (Clinical Supervisor)**:
+  - Role: Walks users through specific tasks (e.g., "How to summarize a patient chart using AI").
+  - Personality: Professional, precise, patient.
+- **The Compliance Officer (Risk Manager)**:
+  - Role: Reviews user practice attempts and flags privacy violations *immediately*.
+  - Personality: Strict, detailed, protective.
+- **The Tech Systems Lead (IT Specialist)**:
+  - Role: Troubleshoots issues with the tools or the mock EHR environment.
+  - Personality: Problem-solver, technical.
+
+### 3. The Campus (User Experience)
+- **The "Simulation Lab"**: A safe sandbox where users practice tasks.
+  - *Scenario*: "Here is a mock patient email. Write a response using the AI tool. Go."
+- **The "Lecture Hall"**: Passive learning (Video/Slides generated from NotebookLM).
+- **The "Reference Library"**: Direct Q&A interface with the NotebookLM "Brain".
+
+## Next Steps
+1.  **Curriculum Mapping**: Identify the top 3 job roles to train first (e.g., Medical Scribe, Billing Agent, Receptionist).
+2.  **Source Gathering**: Begin collecting PDFs/URLs for the "Reference Library".
+3.  **Skill Definition**: Draft the `SKILL.md` for the *Workflow Trainer*.

@@ -7,8 +7,8 @@ const supabase = createClient(
 );
 
 /**
- * Basic iCal Parser
- * Extracts VEVENT blocks and handles simple DATE/DATETIME values
+ * Robust iCal Parser
+ * Handles multiple DTSTART formats including TZID variants from Airbnb/Booking
  */
 function parseICal(icsContent: string) {
     const events: any[] = [];
@@ -20,19 +20,19 @@ function parseICal(icsContent: string) {
         const event: any = {};
 
         // Extract UID
-        const uidMatch = block.match(/UID:(.+)/);
+        const uidMatch = block.match(/^UID:(.+)/m);
         if (uidMatch) event.uid = uidMatch[1].trim();
 
         // Extract Summary
-        const summaryMatch = block.match(/SUMMARY:(.+)/);
+        const summaryMatch = block.match(/^SUMMARY:(.+)/m);
         if (summaryMatch) event.summary = summaryMatch[1].trim();
 
-        // Extract DTSTART
-        const startMatch = block.match(/DTSTART(?:;VALUE=DATE)?:(\d{8}T?\d{0,6}Z?)/);
+        // Robust DTSTART: handles VALUE=DATE, TZID=..., and plain formats
+        const startMatch = block.match(/^DTSTART[^:]*:(\d{8})/m);
         if (startMatch) event.start = formatICalDate(startMatch[1]);
 
-        // Extract DTEND
-        const endMatch = block.match(/DTEND(?:;VALUE=DATE)?:(\d{8}T?\d{0,6}Z?)/);
+        // Robust DTEND: same approach
+        const endMatch = block.match(/^DTEND[^:]*:(\d{8})/m);
         if (endMatch) event.end = formatICalDate(endMatch[1]);
 
         if (event.start && event.end) {
@@ -43,7 +43,7 @@ function parseICal(icsContent: string) {
 }
 
 function formatICalDate(icalStr: string) {
-    // Format: YYYYMMDD or YYYYMMDDTHHMMSSZ
+    // Extracts YYYY-MM-DD from YYYYMMDD...
     const y = icalStr.slice(0, 4);
     const m = icalStr.slice(4, 6);
     const d = icalStr.slice(6, 8);
@@ -52,22 +52,32 @@ function formatICalDate(icalStr: string) {
 
 export async function POST() {
     try {
-        // 1. Get properties with iCal URLs
-        const { data: properties, error: propError } = await supabase
+        // 1. Get ALL properties (filter in JS to avoid PostgREST .or() null syntax issues)
+        const { data: allProperties, error: propError } = await supabase
             .from('properties')
-            .select('id, airbnb_ical_url, booking_ical_url')
-            .or('airbnb_ical_url.neq.null,booking_ical_url.neq.null');
+            .select('id, airbnb_ical_url, booking_ical_url');
 
         if (propError) {
             console.error('Supabase property fetch error:', propError);
             throw propError;
         }
 
-        if (!properties || properties.length === 0) {
-            return NextResponse.json({ success: true, syncedCount: 0, message: 'No properties to sync' });
+        // Filter for properties that have at least one valid iCal URL
+        const properties = (allProperties || []).filter(
+            p => (p.airbnb_ical_url && p.airbnb_ical_url.startsWith('http')) ||
+                 (p.booking_ical_url && p.booking_ical_url.startsWith('http'))
+        );
+
+        if (properties.length === 0) {
+            return NextResponse.json({ 
+                success: true, 
+                syncedCount: 0, 
+                message: 'No properties with iCal URLs found. Add Airbnb or Booking iCal URLs in Properties settings.' 
+            });
         }
 
         let totalSynced = 0;
+        const errors: string[] = [];
 
         // 2. Process each property
         for (const prop of properties) {
@@ -78,51 +88,89 @@ export async function POST() {
 
             for (const { url, platform } of syncUrls) {
                 try {
-                    const response = await fetch(url as string);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const response = await fetch(url as string, {
+                        headers: { 'User-Agent': 'LovelyHome-Sync/1.0' },
+                        cache: 'no-store'
+                    });
+
+                    if (!response.ok) {
+                        errors.push(`${platform} HTTP error for property ${prop.id}: status ${response.status}`);
+                        continue;
+                    }
+
                     const icsContent = await response.text();
+
+                    // Validate it's actually iCal
+                    if (!icsContent.includes('BEGIN:VCALENDAR')) {
+                        errors.push(`${platform} URL for property ${prop.id} did not return valid iCal data`);
+                        continue;
+                    }
+
                     const events = parseICal(icsContent);
 
-                    if (events.length === 0) continue;
-
                     for (const event of events) {
-                        // UPSERT into reservations
-                        const { error: upsertError } = await supabase
-                            .from('reservations')
-                            .upsert({
-                                external_id: event.uid || `${prop.id}-${event.start}-${event.end}`,
-                                property_id: prop.id,
-                                guest_name: event.summary || 'Reserva OTA',
-                                guest_email: 'sync@ota.com',
-                                check_in: event.start,
-                                check_out: event.end,
-                                platform: platform,
-                                status: 'confirmed',
-                                currency: 'COP',
-                                total_price: 0 
-                            }, {
-                                onConflict: 'external_id'
-                            });
+                        const externalId = event.uid || `${prop.id}-${event.start}-${event.end}`;
 
-                        if (!upsertError) totalSynced++;
+                        // Manual upsert: check-then-insert/update to bypass unique constraint dependency
+                        const { data: existing } = await supabase
+                            .from('reservations')
+                            .select('id')
+                            .eq('external_id', externalId)
+                            .maybeSingle();
+
+                        if (existing) {
+                            // Update existing record
+                            const { error: updateError } = await supabase
+                                .from('reservations')
+                                .update({
+                                    guest_name: event.summary || 'Reserva OTA',
+                                    check_in: event.start,
+                                    check_out: event.end,
+                                    platform: platform,
+                                    status: 'confirmed',
+                                })
+                                .eq('external_id', externalId);
+                            if (!updateError) totalSynced++;
+                            else errors.push(`Update error: ${updateError.message}`);
+                        } else {
+                            // Insert new record
+                            const { error: insertError } = await supabase
+                                .from('reservations')
+                                .insert({
+                                    external_id: externalId,
+                                    property_id: prop.id,
+                                    guest_name: event.summary || 'Reserva OTA',
+                                    guest_email: 'sync@ota.com',
+                                    check_in: event.start,
+                                    check_out: event.end,
+                                    platform: platform,
+                                    status: 'confirmed',
+                                    currency: 'COP',
+                                    total_price: 0
+                                });
+                            if (!insertError) totalSynced++;
+                            else errors.push(`Insert error: ${insertError.message}`);
+                        }
                     }
                 } catch (err: any) {
-                    console.error(`Error syncing ${platform} for property ${prop.id}:`, err.message);
+                    errors.push(`Sync error (${platform}, property ${prop.id}): ${err.message}`);
+                    console.error(`Sync error:`, err.message);
                 }
             }
 
-            // Update last_sync_at for the property (if the column exists)
-            try {
-                await supabase
-                    .from('properties')
-                    .update({ last_sync_at: new Date().toISOString() })
-                    .eq('id', prop.id);
-            } catch (e) {
-                // Ignore if column doesn't exist yet
-            }
+            // Update last_sync_at
+            await supabase
+                .from('properties')
+                .update({ last_sync_at: new Date().toISOString() })
+                .eq('id', prop.id);
         }
 
-        return NextResponse.json({ success: true, syncedCount: totalSynced });
+        return NextResponse.json({ 
+            success: true, 
+            syncedCount: totalSynced,
+            propertiesProcessed: properties.length,
+            errors: errors.length > 0 ? errors : undefined
+        });
 
     } catch (error: any) {
         console.error('Sync Global Error:', error);

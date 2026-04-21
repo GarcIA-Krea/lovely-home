@@ -1,0 +1,21 @@
+# Task: GSD AI Training Academy (Healthcare BPO Edition)
+
+- [x] **Phase 1: Conceptualization & Strategy** <!-- id: 1 -->
+    - [x] Define "Digital Dojo" Aesthetic <!-- id: 2 -->
+    - [x] Establish "Faculty Roster" & Agent Personas <!-- id: 3 -->
+    - [x] Create Elizabeth (Liz) Pitch Strategy & Materials <!-- id: 4 -->
+- [x] **Phase 2: Commercial & Visual Assets** <!-- id: 5 -->
+    - [x] Develop Cinematic Video Script & Flow Script <!-- id: 6 -->
+    - [x] Generate SaaS Presentation Deck <!-- id: 7 -->
+    - [x] Organize Media Assets (Images/Videos) into `assets/` <!-- id: 8 -->
+- [x] **Phase 3: Formal Organization** <!-- id: 9 -->
+    - [x] Initialize `scratch/gsd-ai-academy` directory tree <!-- id: 10 -->
+    - [x] Catalog documents into `docs/` (Architecture, Compliance, Strategy) <!-- id: 11 -->
+    - [x] Migrate all active artifacts to local workspace <!-- id: 12 -->
+- [ ] **Phase 4: Technical Foundation (Pending Permissions)** <!-- id: 13 -->
+    - [ ] Initialize Python Virtual Environment (Unblock IT) <!-- id: 14 -->
+    - [ ] Deploy "Jade Protocol" MCP Connector <!-- id: 15 -->
+    - [ ] Build "Universal Course Template" Engine <!-- id: 16 -->
+- [ ] **Phase 5: Simulation Lab & Launch** <!-- id: 17 -->
+    - [ ] Design "Maestro Console" Prototype <!-- id: 18 -->
+    - [ ] Run "Kintsugi" Correction Tests <!-- id: 19 -->

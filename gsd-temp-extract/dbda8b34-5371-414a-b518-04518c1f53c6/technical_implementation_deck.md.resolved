@@ -1,0 +1,90 @@
+# Technical Implementation Blueprint: GSD AI Academy
+
+**Purpose**: A detailed technical breakdown of the "Services as Software" architecture for the 2/24 Technical Review Board (Anderson, Natalia, Sara).
+**Format**: Step-by-Step Technical Guide for NotebookLM Slide Generation.
+**Theme**: "Far East Kintsugi" (Transparent, Detailed, Structured).
+
+---
+
+## Slide 1: The "Services as Software" Paradigm
+**Header**: Why We Are Building This
+**Concept**: Moving from "Hourly Labor" to "Outcome-Based Licensing".
+**The Math**:
+*   **Traditional BPO**: 100 Agents x $15/hr = High Cost, Low Margin (15%).
+*   **AI Academy Model**: 10 Orchestrators x $25/hr + AI License = Low Cost, High Margin (70%+).
+**Technical Implication**: We need a system that *generates* labor, not just supports it.
+
+---
+
+## Slide 2: The Architecture "Jade Protocol"
+**Header**: The 5-Step Factory Workflow
+**Visual Diagram**: `Data -> Brain -> Factory -> Shield -> Orchestrator`
+1.  **Ingest**: Raw documents (PDF/SOP).
+2.  **Distill**: NotebookLM (The Brain).
+3.  **Structure**: Universal JSON Template (The Factory).
+4.  **Validate**: Mock Patient Generator (The Shield).
+5.  **Deploy**: Human Orchestrator (The Pilot).
+
+---
+
+## Slide 3: Step 1 - The Knowledge Brain (NotebookLM)
+**Header**: Data Ingestion Strategy
+**Technical Detail**:
+*   **Source**: We do not train a custom LLM from scratch (Too expensive/slow).
+*   **Method**: We use RAG (Retrieval Augmented Generation) via Google's NotebookLM.
+*   **Process**: Upload 50+ PDFs (ModMed Manuals, Billing Codes).
+*   **Output**: A clean, cited "Knowledge Core" specific to the client.
+
+---
+
+## Slide 4: Step 2 - The Universal Factory (JSON)
+**Header**: The "Universal_Course_Template.json"
+**Technical Detail**:
+*   We don't code agents. We code the **Mold**.
+*   **Schema Fields**:
+    *   `"role_definition"`: (e.g., "Empathetic Nurse")
+    *   `"compliance_rules"`: (e.g., "HIPAA_Section_164")
+    *   `"scenario_logic"`: (If Patient says X, then Y).
+*   **Benefit**: Standardized quality. No "Spaghetti Code".
+
+---
+
+## Slide 5: Step 3 - The Compliance Shield (Python)
+**Header**: Zero-Trust PII Architecture
+**Technical Detail**:
+*   **The Risk**: AI Hallucination or Data Leakage.
+*   **The Solution**: [mock_patient_generator.py](file:///C:/Users/GSD048/.gemini/antigravity/scratch/gsd-ai-academy/docs/compliance/mock_patient_generator.py).
+*   **How It Works**:
+    1.  User requests a scenario (e.g., "Diabetic Denial").
+    2.  Python script generates a **Fresh, Synthetic Identity** (Patricia Johnson, ID: SYN-101).
+    3.  AI runs the scenario on *Patricia*, never on a real patient.
+*   **Result**: 100% HIPAA Compliance by design.
+
+---
+
+## Slide 6: Step 4 - The Orchestrator Interface (Maestro)
+**Header**: The Human-in-the-Loop (HITL)
+**Technical Detail**:
+*   **Role**: The human does not type. They **Approve**.
+*   **Workflow**:
+    1.  AI drafts the Email/Appeal.
+    2.  Human reviews (Edit distance < 10%).
+    3.  Human clicks "SEND".
+*   **Liability**: The Human signature is on the record. The AI is the tool.
+
+---
+
+## Slide 7: The Roadmap & Requirements (Q1 2026)
+**Header**: Technical Readiness Checklist
+**Phase 1: Deep Dive (Today)**
+*   Validate Architecture (Done).
+*   Review Compliance Code (Done).
+
+**Phase 2: Pilot Launch (Next Week)**
+*   **CRITICAL**: Unlock IT Restrictions.
+    *   Python 3.12 (For Generator).
+    *   Whitelist `notebooklm.google.com`.
+    *   PowerShell `RemoteSigned`.
+
+**Phase 3: Production**
+*   Deploy first 10 Orchestrators.

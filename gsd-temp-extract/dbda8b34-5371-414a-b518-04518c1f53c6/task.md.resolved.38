@@ -1,0 +1,27 @@
+# Task: GSD AI Training Academy (Healthcare BPO Edition)
+
+- [x] **Phase 1: The "Pitch" to Liz (Mission Accomplished)** <!-- id: 1 -->
+    - [x] Ingest "Leon Meeting" Context <!-- id: 2 -->
+    - [x] Create Sales Pitch (1-3-6 Rule, HITL Shield) <!-- id: 3 -->
+    - [x] Create Commercial Assets (Video, SaaS Deck) <!-- id: 4 -->
+- [ ] **Phase 2: The "Deep Dive" (Technical Verification)** <!-- id: 5 -->
+    - [x] Create "Deep Dive Strategy" (Winning the Comparison) <!-- id: 6 -->
+    - [x] Build "Mock Patient Generator" (HIPAA Proof) <!-- id: 7 -->
+        - [x] Generator Script (Code Artifact) <!-- id: 8 -->
+        - [x] Synthetic Dataset (JSON Artifact) <!-- id: 9 -->
+        - [x] Compliance Guardrails (Policy Artifact) <!-- id: 10 -->
+        - [ ] Generate "Mock Patient ID Card" (Visual Proof) <!-- id: 11 -->
+    - [x] Create "Technical Architecture Brief" (The Handout) <!-- id: 12 -->
+    - [x] Refine "Anti-Gravity" Demo Script (Static/Safe Mode) <!-- id: 13 -->
+    - [x] Create "Deep Dive Slide Deck" (The Technical Story) <!-- id: 14 -->
+    - [x] Create "Factory Tour Video Script" (The Visual 'How-To') <!-- id: 15 -->
+    - [ ] **Create "Technical Implementation Deck" (The Detailed Blueprint)** <!-- id: 16 -->
+- [x] **Phase 3: Formal Organization** <!-- id: 17 -->
+    - [x] Initialize `scratch/gsd-ai-academy` directory tree <!-- id: 18 -->
+    - [x] Catalog documents into `docs/` <!-- id: 19 -->
+    - [x] Migrate all active artifacts <!-- id: 20 -->
+- [ ] **Phase 4: Technical Foundation (The 2/24 Requirement)** <!-- id: 21 -->
+    - [x] Update "IT Requirements Manifesto" (The Ask) <!-- id: 22 -->
+    - [ ] Initialize Python Virtual Environment (Unblock IT) <!-- id: 23 -->
+    - [ ] Deploy "Jade Protocol" MCP Connector <!-- id: 24 -->
+    - [ ] Build "Universal Course Template" Engine <!-- id: 25 -->

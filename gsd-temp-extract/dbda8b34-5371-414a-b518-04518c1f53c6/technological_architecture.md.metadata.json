@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Created 'The Jade Protocol' (Technological Architecture). This documents the 4-layer stack: Source (NotebookLM), Conductor (MCP), Engine (FastAPI), and Interface (React). It uses the 'Far East' metaphors (Ink Pool, Scribe, Kiln, Dojo) to explain the technical flow in a way that feels 'Native' to the project's soul.",
+  "updatedAt": "2026-02-11T21:13:27.578352300Z"
+}

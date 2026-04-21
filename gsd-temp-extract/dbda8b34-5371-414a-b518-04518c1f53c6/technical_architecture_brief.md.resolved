@@ -1,0 +1,63 @@
+# Technical Architecture Brief: GSD AI Training Academy
+
+**Status**: CONFIDENTIAL / PRE-RELEASE
+**Date**: February 24, 2026
+**To**: GSD Technical Review Board (Anderson, Natalia, Sara)
+
+---
+
+## 1. Executive Summary
+The GSD AI Academy is not a chatbot deployment. It is a **"Knowledge Factory"**.
+Our architecture decouples the **Content Generation** (AI) from the **Data validation** (Compliance), using a Human-in-the-Loop (HITL) protocol to ensure 100% accuracy and zero liability.
+
+## 2. The Core Components
+
+### A. The "Universal Factory" (JSON Schema)
+Instead of hard-coding individual agents, we utilize a single, universal template ([universal_course_template.json](file:///C:/Users/GSD048/.gemini/antigravity/brain/dbda8b34-5371-414a-b518-04518c1f53c6/universal_course_template.json)) that defines:
+*   **Role**: The persona (e.g., "Compassionate Billing Specialist").
+*   **Compliance**: The specific laws (e.g., "HIPAA Sec 164.514").
+*   **Scenario**: The interaction script.
+
+### B. The "Compliance Shield" (Zero PII)
+We operate on a **"Synthetic Data Only"** policy during training.
+*   **Mock Patient Lab**: We generate 100% synthetic patient records (see [mock_patient_data.json](file:///C:/Users/GSD048/.gemini/antigravity/scratch/gsd-ai-academy/docs/compliance/mock_patient_data.json)) using Python scripts.
+*   **Airlock Protocol**: Real PHI never touches the LLM. The AI only sees de-identified "context prompts."
+
+### C. The "Orchestrator Console" (Maestro)
+The interface is designed for non-technical staff ("Orchestrators") to:
+1.  Input a topic (e.g., "New ModMed Update").
+2.  Review the AI-generated course draft.
+3.  **Sign Off** (The HITL Signature).
+
+---
+
+## 3. Deployment Strategy (The "Jade Protocol")
+
+We propose a **Local-First** approach for the pilot phase to ensure security and speed.
+
+| Component | Technology | Status |
+| :--- | :--- | :--- |
+| **Engine** | Python 3.12+ | **Pending IT Aprvl** |
+| **Knowledge** | NotebookLM (Google) | **Restricted** |
+| **Interface** | MCP (Model Context Protocol) | Ready for Deploy |
+| **Hosting** | Local Workstation (Air-Gapped) | Secure |
+
+---
+
+## 4. Immediate Requirements (The "Unlock")
+
+To move from "Architectural Blueprint" to "Live Pilot," we formally request the following accesses for the **Orchestrator Workstation**:
+
+1.  **Python 3.12+ Application Whitelist**:
+    *   *Justification*: Required to run the [mock_patient_generator.py](file:///C:/Users/GSD048/.gemini/antigravity/scratch/gsd-ai-academy/docs/compliance/mock_patient_generator.py) compliance validation script locally.
+2.  **PowerShell Execution Policy (`RemoteSigned`)**:
+    *   *Justification*: Necessary for managing the Python Virtual Environment (`venv`) securely.
+3.  **Network Whitelist (HTTPS)**:
+    *   `*.notebooklm.google.com` (Knowledge Base)
+    *   `*.generativelanguage.googleapis.com` (AI Studio API)
+    *   `pypi.org` (Secure Package Repository)
+
+---
+
+## 5. Conclusion
+This architecture allows GSD to scale from 1 agent to 100 agents without linear headcount growth, while maintaining a stricter compliance posture than manual workflows.

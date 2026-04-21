@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Created 'The Architect Agent System Prompt'. This is the 'Brain' of the builder agent. It includes strict instructions: 'You are a Senior Curriculum Designer'. It forces the agent to use 'The Hierarchy of Truth' and mandates that every output include a `source_id` from the NotebookLM query. This ensures no hallucinations.",
+  "updatedAt": "2026-02-11T21:19:52.498524800Z"
+}

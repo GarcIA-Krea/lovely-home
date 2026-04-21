@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Created 'IT Requirements Checklist'. This is a technical document designed for an IT Administrator. It requests: 1. Python 3.12+ (added to PATH). 2. Node.js (LTS). 3. PowerShell 'RemoteSigned' policy. 4. Whitelisting of `pypi.org`, `npmjs.com`, and `notebooklm.google`. It explains *why* each is needed (Dependency installation, MCP connectivity).",
+  "updatedAt": "2026-02-12T17:42:00.576588900Z"
+}

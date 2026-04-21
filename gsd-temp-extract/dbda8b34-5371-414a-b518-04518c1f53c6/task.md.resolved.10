@@ -1,0 +1,17 @@
+# Task: GSD AI Training Academy (Healthcare BPO Edition)
+
+- [ ] **Phase 1: The "Pitch" (Friday Presentation)** <!-- id: 1 -->
+    - [x] Ingest "2026 Opportunities" Context (Manual Input) <!-- id: 2 -->
+    - [/] Create Presentation Materials (Scripts & Slides) <!-- id: 3 -->
+    - [/] Finalize "Spiritual Elegant" Design Brief <!-- id: 4 -->
+    - [x] Define "Orchestrator" Role & "Factory" Model <!-- id: 5 -->
+    - [/] Finalize Executive Summary (Add $505B/HIPAA Data) <!-- id: 6 -->
+- [ ] **Phase 2: The "Brain" (NotebookLM)** <!-- id: 7 -->
+    - [ ] Create Master Notebook: *Topic Database* <!-- id: 8 -->
+    - [ ] Create Notebook: *The Score* (SOPs) <!-- id: 9 -->
+- [ ] **Phase 3: The "Factory" (The Engine)** <!-- id: 10 -->
+    - [ ] Define **"The Connector"** (API/Logic to pull NotebookLM data) <!-- id: 11 -->
+    - [ ] Create **"The Universal Course Template"** (The Shell) <!-- id: 12 -->
+- [ ] **Phase 4: The "Campus" (Platform)** <!-- id: 13 -->
+    - [ ] Design "Maestro Console" UI (**Zen/Minimalist Style**) <!-- id: 14 -->
+    - [ ] Build "Simulation Lab" (Jam Sessions) <!-- id: 15 -->

@@ -1,0 +1,15 @@
+# Task: GSD AI Training Academy (Healthcare BPO Edition)
+
+- [ ] **Phase 1: The "Pitch" to Elizabeth (Friday)** <!-- id: 1 -->
+    - [x] Ingest "Leon Meeting" Context (Validated "Services-as-Software") <!-- id: 2 -->
+    - [/] Adapt Strategy: **The "Micro-Learning" Pivot** (Address "Time" Concern) <!-- id: 3 -->
+    - [ ] Finalize Executive Summary for Elizabeth <!-- id: 4 -->
+- [ ] **Phase 2: The "Brain" (NotebookLM)** <!-- id: 5 -->
+    - [ ] Create Master Notebook: *Topic Database* <!-- id: 6 -->
+    - [ ] Create Notebook: *The Score* (SOPs) <!-- id: 7 -->
+- [ ] **Phase 3: The "Factory" (The Engine)** <!-- id: 8 -->
+    - [ ] **Define "The MCP Connector" Architecture** (Technical Spec) <!-- id: 9 -->
+    - [ ] Create **"The Universal Course Template"** (The Shell) <!-- id: 10 -->
+- [ ] **Phase 4: The "Campus" (Platform)** <!-- id: 11 -->
+    - [ ] Design "Maestro Console" UI (**Bio-Digital Sanctuary**) <!-- id: 12 -->
+    - [ ] Build "Simulation Lab" (Jam Sessions) <!-- id: 13 -->

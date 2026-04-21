@@ -1,0 +1,94 @@
+# Deep Dive Slide Deck Script: "The Knowledge Factory"
+
+**Date**: February 24, 2026
+**Audience**: Elizabeth, Natalia, Anderson, Sara
+**Theme**: "Far East Spiritual Hyper-Realism" (Jade, Obsidian, Kintsugi Gold)
+
+---
+
+## Slide 1: The Title Card (The Promise)
+**Visual**: A massive obsidian monolithic gate (Torii style) standing in a digital void. The text "GSD AI ACADEMY" is carved into it, glowing with veins of liquid gold (Kintsugi).
+**Text**:
+*   **Header**: GSD AI ACADEMY
+*   **Sub**: The Knowledge Factory
+*   **Footer**: "Deep Dive: Architecture & Security Protocol"
+
+**Talk Track**:
+"Last time, we talked about the vision. Today, we open the hood. Welcome to the Factory."
+
+---
+
+## Slide 2: The Problem (Hand-Crafted Agents)
+**Visual**: A split screen. **Left (Them)**: A lone, tired developer manually typing code on an old terminal (Black & White). **Right (Us)**: A glowing, automated assembly line where jade robotic arms are assembling golden orbs (Color).
+**Text**:
+*   **Header**: The Scalability Trap
+*   **Bullet**: Building Agents Manually = Linear Growth (1 Dev = 1 Bot)
+*   **Bullet**: Building a Factory = Exponential Growth (1 Architect = 100 Bots)
+
+**Talk Track**:
+"We respect the work your team has done. But manual coding doesn't scale. To train 5,000 staff, we can't build agents one by one. We need an assembly line."
+
+---
+
+## Slide 3: The Engine (NotebookLM + Universal Template)
+**Visual**: A central glowing brain (NotebookLM) feeding data streams into a golden mold (The JSON Template). The output is a perfect, shining agent (Jade Avatar).
+**Text**:
+*   **Header**: The Universal Factory
+*   **Step 1**: Feed Raw Knowledge (PDFs, SOPs) -> NotebookLM
+*   **Step 2**: Inject into `Universal_Template.json`
+*   **Step 3**: Instant Agent Deployment
+
+**Talk Track**:
+"This is our secret weapon. We don't code the logic. We feed the knowledge into the brain, and the template structures it. We can spin up a new 'ModMed Specialist' in 15 minutes."
+
+---
+
+## Slide 4: The Shield (Mock Patient Generator)
+**Visual**: A holographic ID card floating in the air (The one we generated). It says **"PATRICIA JOHNSON - SYNTHETIC"**.
+**Text**:
+*   **Header**: Zero PII. Zero Liability.
+*   **Code**: `import compliance_guardrails`
+*   **Fact**: 100% Synthetic Data. We *invent* patients, we don't *scrub* them.
+*   **Quote**: "HIPAA isn't a hurdle. It's our foundation."
+
+**Talk Track**:
+"Natalia, Anderson—I know your fear. 'What if the AI leaks data?' It can't. Because it never sees real data. This allows us to train without risk."
+
+---
+
+## Slide 5: The Evolution (Agent -> Orchestrator)
+**Visual**: A silhouette of a human head. As they put on a high-tech headset (Jade Visor), the silhouette fills with golden light.
+**Text**:
+*   **Header**: The Orchestrator Model
+*   **Old Way**: Human performs the task.
+*   **New Way**: Human *conducts* the AI.
+*   **Result**: "Services as Software" (70% Margin)
+
+**Talk Track**:
+"We aren't replacing our staff. We are upgrading them. The 'Orchestrator' doesn't type the email; they approve the drafts. They manage the swarm."
+
+---
+
+## Slide 6: The Unlock (The IT Ask)
+**Visual**: A heavy, ornate Jade Vault Door. It is slightly ajar, letting a blinding white light shine through. On the door, three "keyholes" are visible.
+**Text**:
+*   **Header**: The Keys to the Factory
+*   **Key 1**: Python 3.12 (For Compliance Engine)
+*   **Key 2**: Whitelist `notebooklm.google.com` (For Knowledge Base)
+*   **Key 3**: PowerShell `RemoteSigned` (For Environment Control)
+
+**Talk Track**:
+"This engine is built. It is parked in my laptop right now. To turn it on for the pilot, I need these three keys. Once we have them, we fly."
+
+---
+
+## Slide 7: The Roadmap (Q1 2026)
+**Visual**: A golden timeline curving into the distance like a silk road.
+**Text**:
+*   **Now**: Deep Dive (Today)
+*   **Next Week**: IT Unlock & Pilot Launch
+*   **Month 1**: First 10 Orchestrators Trained
+*   **Month 3**: Full BPO Rollout
+
+**Talk Track**:
+"We are ready. The plan is sound. The compliance is bulletproof. Let's build."

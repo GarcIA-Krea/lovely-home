@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Created 'Cinematic Flow Script'. This is formatted for AI Video Generators (like Google Vids or VideoFX). It breaks the video into 5 sequences (The Dust, The Awakening, The Orchestra, The Scale, The Brand). Each shot includes: Duration (e.g., 4s), Camera Move (e.g., Slow Dolly In), Visual Prompt (e.g., 'Macro shot of dust...'), and Audio/Voiceover cues. This ensures the output is 'Motion-First' rather than 'Slide-First'.",
+  "updatedAt": "2026-02-12T18:37:36.052736800Z"
+}

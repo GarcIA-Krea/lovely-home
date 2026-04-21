@@ -1,0 +1,35 @@
+# [Goal Description]
+**Target**: Prepare a comprehensive **Architectural Blueprint** for the GSD AI Training Academy to present to the General Manager on Friday.
+**Value Proposition**: A self-updating, compliance-first "Teaching Hospital" that trains BPO staff on AI tools using simulated clinical scenarios.
+
+## User Review Required
+> [!IMPORTANT]
+> **Friday Deliverable**: Is the "Executive Summary" artifact sufficient for your meeting, or do you need slides/visuals?
+> **"Hunter" Scope**: We need to define *where* the Hunter looks. (e.g., specific vendor documentation portals, FDA updates, CMS guidelines).
+
+## Proposed Architecture: The "Teaching Hospital" Model
+
+### 1. The Knowledge Core (NotebookLM) - "The Library"
+*   **Sector A: Clinical Systems (EHR)**. "How to use Epic/Cerner".
+*   **Sector B: Regulatory (Compliance)**. "What is HIPAA/HITECH".
+*   **Sector C: BPO Operations (SOPs)**. "How GSD handles calls".
+
+### 2. The Faculty (Agent Roster)
+*   **The Scout ("Hunter")**:
+    *   *Function*: Runs scheduled searches for "Epic update [current month]", "CMS coding change 2026".
+    *   *Output*: Summaries of changes fed into "The Library".
+*   **The Preceptor ("Trainer")**:
+    *   *Function*: Runs the Simulation Lab. Generates patient scenarios.
+*   **The Auditor ("Compliance")**:
+    *   *Function*: Real-time monitoring of trainee inputs for PII/PHI.
+
+### 3. The Campus (User Experience)
+*   **Simulation Lab**: The primary interface. A split-screen view:
+    *   *Left*: "Simulated EHR" (or task prompt).
+    *   *Right*: "AI Tool" (Sandbox).
+    *   *Overlay*: "The Auditor" warnings.
+
+## Presentation Prep Strategy
+1.  **Define the "Why"**: Efficiency + Compliance.
+2.  **Define the "How"**: The Multi-Agent System (Faculty).
+3.  **Define the "What"**: The Simulation Lab (hands-on training).

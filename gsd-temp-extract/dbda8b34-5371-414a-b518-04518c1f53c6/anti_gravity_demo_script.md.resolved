@@ -1,0 +1,32 @@
+# Live Demo Script: "The Architect Reveal" (Anti-Gravity)
+
+> **Objective**: Show Elizabeth *exactly* how we build tools in seconds, not weeks.
+> **The Narrative**: "I am not a coder. I am an Orchestrator. This is my Architect."
+
+---
+
+## Step 1: The Setup (Screen Share)
+*   **Action**: Share your screen. Open *this specific chat window*.
+*   **Say**: "Elizabeth, you asked how we move so fast. I don't write Python. I don't write SQL. I have an AI Architect that lives in my workspace."
+
+## Step 2: The "Code Proof" (Mock Patient)
+*   **Action**: Open the file I just built: [mock_patient_generator.py](file:///C:/Users/GSD048/.gemini/antigravity/brain/dbda8b34-5371-414a-b518-04518c1f53c6/mock_patient_generator.py).
+*   **Say**: "Remember the HIPAA concern? I asked my Architect for a 'Synthetic Patient Generator' this morning. Look at this."
+*   **Highlight**: Scroll to line 45 (`SYNTHETIC_DATA_DO_NOT_PROCESS`).
+*   **Say**: "It wrote the logic to invent fake diabetic patients. We never touch real data."
+
+## Step 3: The "Live Build" (The Magic Trick)
+*   **Say**: "Let me show you how we build a new tool right now. Watch."
+*   **Action**: Type the following prompt into our chat (or copy-paste it):
+    > *"Architect, I need a Python script to validate a CSV of patient emails. It must check for '@gsd.com' domain and flag any external emails as 'SECURITY_RISK'. Write the code now."*
+*   **Result**: I (The AI) will generate that code instantly.
+*   **Say**: "Done. That would take your team a day. It took us 10 seconds."
+
+## Step 4: The "Google Flow" Reveal
+*   **Action**: Open [cinematic_flow_script.md](file:///C:/Users/GSD048/.gemini/antigravity/scratch/gsd-ai-academy/docs/visuals/cinematic_flow_script.md).
+*   **Say**: "And the video? I didn't just 'make it'. My Architect wrote the *Cinematography Script* first. We orchestrate the creativity, we don't just guess."
+
+---
+
+## The Closing Argument
+**Say**: "This is why we can build the Academy in 14 months. We aren't typing. We are Orchestrating."
