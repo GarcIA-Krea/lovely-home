@@ -1,5 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_OTHER",
-  "summary": "Created the 'Compliance Framework' document. This defines the 'Hierarchy of Truth': Federal Law (Top) -> Payer Rules (Middle) -> Client Preference (Bottom). It details exactly *how* the Agent validates content against sources like HIPAA and CMS guidelines to prevent legal issues.",
-  "updatedAt": "2026-02-11T21:19:48.605376600Z"
-}

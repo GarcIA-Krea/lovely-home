@@ -1,6 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_OTHER",
-  "summary": "Updated 'Factory Tour Video Script' to match the user's request for 8-second scenes (Google Flow optimized). The script now features 11 precise scenes (approx 90s total) covering the workflow: Data Ingestion -> NotebookLM Brain -> JSON Template -> Compliance Check -> Orchestrator Deployment. It uses the 'Jade/Black/Gold' aesthetic.",
-  "updatedAt": "2026-02-17T16:42:43.792591700Z",
-  "version": "1"
-}

@@ -1,5 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_OTHER",
-  "summary": "Created 'Compliance Guardrails & Zero-Trust Protocol'. This is the technical policy document for Natalia and Anderson. It defines the 'Data Airlock' (Mock vs Real Data), the 'HITL Shield' (Human Sign-off), and the 'Kill Switch' (Rule-based overrides). It proves that we have thought through the security architecture.",
-  "updatedAt": "2026-02-17T15:44:52.039154600Z"
-}
