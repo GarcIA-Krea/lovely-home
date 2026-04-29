@@ -14,6 +14,7 @@ interface Reservation {
     total_price: number;
     currency: string;
     status: string;
+    property_id: string;
     properties: any;
     created_at: string;
     platform?: string;
@@ -46,7 +47,7 @@ export default function ReservationsPage() {
         const { data: resData } = await supabase
             .from('reservations')
             .select(`
-                id, guest_name, guest_email, check_in, check_out, 
+                id, property_id, guest_name, guest_email, check_in, check_out, 
                 total_price, currency, status, created_at, platform,
                 properties (name)
             `)
@@ -236,7 +237,7 @@ export default function ReservationsPage() {
 
     const filteredReservations = filterPropertyId === 'all' 
         ? reservations 
-        : reservations.filter(res => res.properties?.id === filterPropertyId || res.properties?.name === filterPropertyId /* fallback */ || properties.find(p => p.id === filterPropertyId)?.name?.es === getPropName(res.properties?.name));
+        : reservations.filter(res => res.property_id === filterPropertyId);
 
     return (
         <div className={styles.container}>
