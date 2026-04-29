@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+export const dynamic = 'force-dynamic';
+
 // Format YYYY-MM-DD to YYYYMMDD required by basic iCal standard
 const formatICalDate = (dateStr: string) => {
     return dateStr.replace(/-/g, '');
@@ -54,7 +56,7 @@ export async function GET(req: Request, context: { params: Promise<{ slug: strin
         // 2. Fetch all active reservations for this property to block the OTA
         const { data: reservations, error: resError } = await supabase
             .from('reservations')
-            .select('id, check_in, check_out, created_at')
+            .select('id, check_in, check_out, created_at, status')
             .eq('property_id', property.id)
             .neq('status', 'cancelled');
 
@@ -73,8 +75,18 @@ export async function GET(req: Request, context: { params: Promise<{ slug: strin
         ];
 
         if (reservations && reservations.length > 0) {
+            const now = new Date();
             for (const res of reservations) {
                 if (!res.check_in || !res.check_out) continue;
+                
+                // Do not block dates if it's pending and older than 15 minutes
+                if (res.status === 'pending') {
+                    const createdAt = new Date(res.created_at);
+                    const diffMins = Math.floor((now.getTime() - createdAt.getTime()) / 60000);
+                    if (diffMins > 15) {
+                        continue; // Skip expired pending reservation
+                    }
+                }
                 
                 const start = formatICalDate(res.check_in);
                 const end = formatICalDate(res.check_out);

@@ -107,9 +107,21 @@ export async function POST() {
                     }
 
                     const events = parseICal(icsContent);
+                    const currentICalIds = new Set<string>();
+
+                    // Fetch existing confirmed reservations for this property & platform
+                    const { data: existingDB } = await supabase
+                        .from('reservations')
+                        .select('external_id')
+                        .eq('property_id', prop.id)
+                        .eq('platform', platform)
+                        .eq('status', 'confirmed');
+                    
+                    const existingIds = new Set(existingDB?.map(r => r.external_id) || []);
 
                     for (const event of events) {
                         const externalId = event.uid || `${prop.id}-${event.start}-${event.end}`;
+                        currentICalIds.add(externalId);
 
                         // Manual upsert: check-then-insert/update to bypass unique constraint dependency
                         const { data: existing } = await supabase
@@ -150,6 +162,22 @@ export async function POST() {
                                 });
                             if (!insertError) totalSynced++;
                             else errors.push(`Insert error: ${insertError.message}`);
+                        }
+                    }
+
+                    // 3. Detect Cancellations (Exists in DB as confirmed, but missing in fresh iCal)
+                    const cancelledIds = [...existingIds].filter(id => !currentICalIds.has(id));
+                    
+                    if (cancelledIds.length > 0) {
+                        const { error: cancelError } = await supabase
+                            .from('reservations')
+                            .update({ status: 'cancelled' })
+                            .in('external_id', cancelledIds);
+                            
+                        if (cancelError) {
+                            errors.push(`Cancellation error for ${platform}: ${cancelError.message}`);
+                        } else {
+                            console.log(`Automatically cancelled ${cancelledIds.length} reservations for ${platform} (Property: ${prop.id})`);
                         }
                     }
                 } catch (err: any) {

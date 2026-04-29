@@ -22,6 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const menu = [
         { name: 'Dashboard', path: '/admin/dashboard', icon: 'dashboard' },
         { name: 'Reservas', path: '/admin/reservations', icon: 'calendar_month' },
+        { name: 'Tarifas Dinámicas', path: '/admin/pricing', icon: 'payments' },
         { name: 'Propiedades', path: '/admin/properties', icon: 'apartment' },
         { name: 'Testimonios', path: '/admin/reviews', icon: 'star' },
         { name: 'Configuración', path: '/admin/settings', icon: 'settings' }

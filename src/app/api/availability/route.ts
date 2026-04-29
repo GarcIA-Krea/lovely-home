@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+export const dynamic = 'force-dynamic';
+
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -30,17 +32,26 @@ export async function GET(req: Request) {
         }
 
         // 2. Find reservations that OVERLAP with the requested dates
-        // Overlap: existing.check_in < requested.check_out AND existing.check_out > requested.check_in
         const { data: blocked, error: resError } = await supabase
             .from('reservations')
-            .select('property_id')
+            .select('property_id, status, created_at')
             .in('status', ['confirmed', 'pending'])
             .lt('check_in', checkOut)   // existing starts before requested ends
             .gt('check_out', checkIn);  // existing ends after requested starts
 
         if (resError) throw resError;
 
-        const blockedIds = new Set((blocked || []).map(r => r.property_id));
+        const now = new Date();
+        const activeBlocked = (blocked || []).filter(r => {
+            if (r.status === 'pending') {
+                const createdAt = new Date(r.created_at);
+                const diffMins = Math.floor((now.getTime() - createdAt.getTime()) / 60000);
+                if (diffMins > 15) return false; // Expired, so it does not block
+            }
+            return true;
+        });
+
+        const blockedIds = new Set(activeBlocked.map(r => r.property_id));
 
         // 3. Return all eligible properties with availability flag
         const result = eligibleProperties.map(p => ({

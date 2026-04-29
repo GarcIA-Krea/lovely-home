@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
+import { sendReservationNotification } from '@/lib/notifications';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -58,17 +59,39 @@ export async function POST(req: Request) {
 
             // 3. Actualizar la reserva en Supabase
             if (newReservationStatus !== 'pending') {
-                const { error } = await supabase
+                const { data: updatedRes, error } = await supabase
                     .from('reservations')
                     .update({
                         status: newReservationStatus,
                         payment_intent_id: transaction.id
                     })
-                    .eq('id', reservationId);
+                    .eq('id', reservationId)
+                    .select('guest_name, guest_email, check_in, check_out, total_price, currency, properties(name)')
+                    .single();
 
                 if (error) {
                     console.error('Error updating reservation after Wompi webhook:', error);
                     return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
+                }
+
+                // 4. Disparar notificación del nuevo estado
+                if (updatedRes) {
+                    const nights = updatedRes.check_in && updatedRes.check_out
+                        ? Math.ceil((new Date(updatedRes.check_out).getTime() - new Date(updatedRes.check_in).getTime()) / (1000 * 60 * 60 * 24))
+                        : 0;
+                    const notifType = newReservationStatus === 'confirmed' ? 'confirmed_reservation' : 'cancelled_reservation';
+                    sendReservationNotification(notifType, {
+                        reservationId,
+                        guestName: updatedRes.guest_name || 'Huésped',
+                        guestEmail: updatedRes.guest_email || '',
+                        propertyName: (updatedRes.properties as any)?.name || 'Propiedad',
+                        checkIn: updatedRes.check_in,
+                        checkOut: updatedRes.check_out,
+                        nights,
+                        totalPrice: updatedRes.total_price || 0,
+                        currency: updatedRes.currency || 'COP',
+                        platform: 'direct',
+                    }).catch(err => console.error('[Webhook] Error en notificación:', err));
                 }
             }
         }

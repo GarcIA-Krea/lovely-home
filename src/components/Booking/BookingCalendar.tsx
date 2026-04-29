@@ -22,25 +22,58 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
     const [guestEmail, setGuestEmail] = useState<string>('');
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [nights, setNights] = useState<number>(0);
+    const [loadingPrice, setLoadingPrice] = useState(false);
+    const [priceBreakdown, setPriceBreakdown] = useState<any[]>([]);
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (checkIn && checkOut) {
-            const start = new Date(checkIn);
-            const end = new Date(checkOut);
-            const diffTime = end.getTime() - start.getTime();
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const fetchDynamicPrice = async () => {
+            if (checkIn && checkOut) {
+                const start = new Date(checkIn);
+                const end = new Date(checkOut);
+                const diffTime = end.getTime() - start.getTime();
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            if (diffDays > 0) {
-                setNights(diffDays);
-                setTotalPrice(diffDays * pricePerNight);
+                if (diffDays > 0) {
+                    setNights(diffDays);
+                    setLoadingPrice(true);
+                    try {
+                        const res = await fetch(`/api/pricing?property_id=${propertyId}&check_in=${checkIn}&check_out=${checkOut}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            setTotalPrice(data.total);
+                            setPriceBreakdown(data.breakdown || []);
+                        } else {
+                            // Fallback
+                            setTotalPrice(diffDays * pricePerNight);
+                            setPriceBreakdown([]);
+                        }
+                    } catch (e) {
+                        // Fallback
+                        setTotalPrice(diffDays * pricePerNight);
+                        setPriceBreakdown([]);
+                    } finally {
+                        setLoadingPrice(false);
+                    }
+                } else {
+                    setNights(0);
+                    setTotalPrice(0);
+                    setPriceBreakdown([]);
+                }
             } else {
                 setNights(0);
                 setTotalPrice(0);
+                setPriceBreakdown([]);
             }
-        }
-    }, [checkIn, checkOut, pricePerNight]);
+        };
+
+        const timer = setTimeout(() => {
+            fetchDynamicPrice();
+        }, 400);
+
+        return () => clearTimeout(timer);
+    }, [checkIn, checkOut, propertyId, pricePerNight]);
 
     const handleBooking = async () => {
         if (nights > 0 && guestName.trim() !== '' && guestEmail.trim() !== '') {
@@ -131,12 +164,20 @@ export default function BookingCalendar({ propertyId, propertyName, pricePerNigh
                 {nights > 0 && (
                     <div className={styles.summary}>
                         <div className={styles.summaryRow}>
-                            <span>{pricePerNight.toLocaleString()} {currency} x {nights} {t.booking.nights}</span>
-                            <span>{(pricePerNight * nights).toLocaleString()} {currency}</span>
+                            <span>{t.booking.nights} ({nights})</span>
+                            <span>{loadingPrice ? '...' : `${totalPrice.toLocaleString()} ${currency}`}</span>
                         </div>
+                        {priceBreakdown.some(b => b.discountLastMinute > 0) && (
+                            <div className={styles.summaryRow} style={{ color: '#10B981', fontSize: '0.85rem' }}>
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>sell</span>
+                                    ¡Descuento de Último Minuto!
+                                </span>
+                            </div>
+                        )}
                         <div className={styles.totalRow}>
                             <span>{t.booking.totalEstimated}</span>
-                            <span>{totalPrice.toLocaleString()} {currency}</span>
+                            <span>{loadingPrice ? 'Calculando...' : `${totalPrice.toLocaleString()} ${currency}`}</span>
                         </div>
                     </div>
                 )}

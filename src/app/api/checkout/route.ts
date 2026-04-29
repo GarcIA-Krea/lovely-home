@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
+import { sendReservationNotification } from '@/lib/notifications';
+import { calculateDynamicPrice } from '@/lib/pricingEngine';
 
 // Initialize Supabase admin client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -18,25 +20,29 @@ export async function POST(req: Request) {
         const wompiPublicKey = process.env.NEXT_PUBLIC_WOMPI_PUBLIC_KEY;
         const wompiIntegritySecret = process.env.WOMPI_INTEGRITY_SECRET;
 
-        // Si no existen las llaves de Wompi, devolvemos error (o usamos "TEST_KEY" por defecto temporal si lo configuran así)
+        // Si no existen las llaves de Wompi, devolvemos error
         if (!wompiPublicKey) {
             console.error('Missing Wompi Keys');
             return NextResponse.json({ error: 'La pasarela de pagos no está configurada.' }, { status: 500 });
         }
 
-        const totalAmount = pricePerNight * nights;
-        const amountInCents = totalAmount * 100;
-
-        // 1. Crear la reserva en estado "pending" en Supabase
-        // Note: Check what propertyId actually is. In BookingCalendar it passes 'propertyName' as propertyId string! This is a bug in the client!
-        // We will insert 'external_id' for now if propertyId is not a UUID, to prevent errors.
-        
+        // VALIDACIÓN DE PRECIO DINÁMICO EN EL SERVIDOR
+        // No confiamos en el precio que envía el cliente, lo calculamos nosotros
         let validPropertyId = null;
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         if (uuidRegex.test(propertyId)) {
             validPropertyId = propertyId;
         }
 
+        if (!validPropertyId) {
+            return NextResponse.json({ error: 'ID de propiedad inválido para checkout.' }, { status: 400 });
+        }
+
+        const pricingResult = await calculateDynamicPrice(validPropertyId, checkIn, checkOut);
+        const totalAmount = pricingResult.total;
+        const amountInCents = Math.round(totalAmount * 100);
+
+        // 1. Crear la reserva en estado "pending" en Supabase
         const { data: reservation, error: dbError } = await supabase
             .from('reservations')
             .insert([{
@@ -60,7 +66,21 @@ export async function POST(req: Request) {
 
         const reservationId = reservation.id;
 
-        // 2. Generar el Hash de Wompi (Integridad)
+        // 2. Disparar notificación de nueva reserva (no-blocking)
+        sendReservationNotification('new_reservation', {
+            reservationId,
+            guestName,
+            guestEmail,
+            propertyName: propertyName || 'Propiedad',
+            checkIn,
+            checkOut,
+            nights,
+            totalPrice: totalAmount,
+            currency: currency || 'COP',
+            platform: 'direct',
+        }).catch(err => console.error('[Checkout] Error en notificación:', err));
+
+        // 3. Generar el Hash de Wompi (Integridad)
         // El hash de integridad de Wompi se genera con SHA256 de: 
         // cadena concatenada: referencia + monto_en_centavos + moneda + secreto_integridad
         const reference = `RES-${reservationId}`;

@@ -30,6 +30,7 @@ export default function ReservationsPage() {
     const [properties, setProperties] = useState<Property[]>([]);
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
+    const [filterPropertyId, setFilterPropertyId] = useState<string>('all');
 
     const [formData, setFormData] = useState({
         guest_name: '',
@@ -208,8 +209,15 @@ export default function ReservationsPage() {
 
     const getPropName = (nameObj: any) => {
         if (!nameObj) return 'Desconocida';
-        let parsed = typeof nameObj === 'string' ? JSON.parse(nameObj) : nameObj;
-        return parsed?.es || 'Desconocida';
+        if (typeof nameObj === 'string') {
+            try {
+                const parsed = JSON.parse(nameObj);
+                return parsed?.es || nameObj;
+            } catch (e) {
+                return nameObj;
+            }
+        }
+        return nameObj?.es || 'Desconocida';
     };
 
     const getStatusClass = (res: Reservation) => {
@@ -226,11 +234,26 @@ export default function ReservationsPage() {
         return res.status.toUpperCase();
     };
 
+    const filteredReservations = filterPropertyId === 'all' 
+        ? reservations 
+        : reservations.filter(res => res.properties?.id === filterPropertyId || res.properties?.name === filterPropertyId /* fallback */ || properties.find(p => p.id === filterPropertyId)?.name?.es === getPropName(res.properties?.name));
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Reservas</h1>
                 <div className={styles.actionButtons}>
+                    <select 
+                        value={filterPropertyId} 
+                        onChange={(e) => setFilterPropertyId(e.target.value)}
+                        className={styles.select}
+                        style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #ccc', minWidth: '150px' }}
+                    >
+                        <option value="all">Todas las Propiedades</option>
+                        {properties.map(p => (
+                            <option key={p.id} value={p.id}>{getPropName(p.name)}</option>
+                        ))}
+                    </select>
                     <button onClick={clearExpired} className={styles.cleanBtn}>
                         <span className="material-symbols-outlined">delete_sweep</span>
                         Limpiar Vencidas
@@ -309,12 +332,12 @@ export default function ReservationsPage() {
                             <tr>
                                 <td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>Cargando reservas...</td>
                             </tr>
-                        ) : reservations.length === 0 ? (
+                        ) : filteredReservations.length === 0 ? (
                             <tr>
-                                <td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>No hay reservas registradas.</td>
+                                <td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>No hay reservas para esta propiedad.</td>
                             </tr>
                         ) : (
-                            reservations.map((res) => (
+                            filteredReservations.map((res) => (
                                 <tr key={res.id} className={styles.tr}>
                                     <td className={styles.td}>
                                         <div style={{ fontWeight: 600, color: '#1a1a1a' }}>{res.guest_name}</div>
@@ -354,10 +377,10 @@ export default function ReservationsPage() {
             <div className={styles.cardsContainer}>
                 {loading ? (
                     <div style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>Cargando reservas...</div>
-                ) : reservations.length === 0 ? (
-                    <div style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>No hay reservas registradas.</div>
+                ) : filteredReservations.length === 0 ? (
+                    <div style={{ padding: '2rem', textAlign: 'center', color: '#666' }}>No hay reservas para esta propiedad.</div>
                 ) : (
-                    reservations.map((res) => (
+                    filteredReservations.map((res) => (
                         <div key={res.id} className={styles.card}>
                             <div className={styles.cardHeader}>
                                 <div className={styles.cardPropName}>{getPropName(res.properties?.name)}</div>
